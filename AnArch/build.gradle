@@ -47,8 +47,8 @@ apply plugin: 'com.jfrog.bintray'
 version = "0.0.0.1"                                                              // #CONFIG# // project version
 
 
-def siteUrl = 'https://gitee.com/ZoomTec/AnToolSource'                    // #CONFIG# // project homepage
-def gitUrl = 'https://gitee.com/ZoomTec/AnToolSource.git'                // #CONFIG# // project git
+def siteUrl = 'https://github.com/ProZoom/AnLibrary'                    // #CONFIG# // project homepage
+def gitUrl = 'git@github.com:ProZoom/AnLibrary.git'                // #CONFIG# // project git
 group = "com.top"                                                           // #CONFIG# // Maven Group ID for the artifact (pageckage name is ok)
 
 install {
