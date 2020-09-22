@@ -68,8 +68,8 @@ install {
                 }
                 developers {
                     developer {
-                        id 'leo946666'                                           // #CONFIG# // your user id (you can write your nickname)
-                        name 'leo946666'                                       // #CONFIG# // your user name
+                        id 'leo719947897 '                                           // #CONFIG# // your user id (you can write your nickname)
+                        name 'leo719947897 '                                       // #CONFIG# // your user name
                         email '719947897@qq.com'                               // #CONFIG# // your email
                     }
                 }
@@ -111,7 +111,7 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "AnLibrary"
+        repo = "maven"
         name = "AnArch"     // #CONFIG# project name in jcenter
         websiteUrl = siteUrl
         vcsUrl = gitUrl
