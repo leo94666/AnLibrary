@@ -1,0 +1,3 @@
+include ':AnArch'
+include ':app'
+rootProject.name = "sample"
