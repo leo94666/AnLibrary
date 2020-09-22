@@ -44,7 +44,7 @@ dependencies {
 
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "0.6.6"                                                              // #CONFIG# // project version
+version = "0.0.0.1"                                                              // #CONFIG# // project version
 
 
 def siteUrl = 'https://gitee.com/ZoomTec/AnToolSource'                    // #CONFIG# // project homepage
