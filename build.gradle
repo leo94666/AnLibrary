@@ -23,10 +23,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
         classpath "com.github.dcendents:android-maven-gradle-plugin:$android_maven_version"
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4' // jfrog plugin
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
