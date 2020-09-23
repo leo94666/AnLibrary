@@ -36,5 +36,5 @@ dependencies {
 
 
     //我的依赖包
-    api 'com.github.leo94666:AnLibrary:0.0.0.0'
+    api 'com.github.leo94666:AnLibrary:0.0.0.1'
 }
