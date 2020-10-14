@@ -39,6 +39,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso"
 
-    implementation project(path: ':AnArch')
+    api project(path: ':AnArch')
 
 }
