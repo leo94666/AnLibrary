@@ -1,4 +1,4 @@
-package com.top.androidx.RockerView;
+package com.top.androidx.rockerview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

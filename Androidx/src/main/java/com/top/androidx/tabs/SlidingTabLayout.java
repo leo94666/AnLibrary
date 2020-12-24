@@ -1,4 +1,4 @@
-package com.top.androidx.TabLayout;
+package com.top.androidx.tabs;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -30,9 +30,9 @@ import androidx.viewpager.widget.ViewPager;
 
 
 import com.top.androidx.R;
-import com.top.androidx.TabLayout.listener.OnTabSelectListener;
-import com.top.androidx.TabLayout.utils.UnreadMsgUtils;
-import com.top.androidx.TabLayout.widget.MsgView;
+import com.top.androidx.tabs.listener.OnTabSelectListener;
+import com.top.androidx.tabs.utils.UnreadMsgUtils;
+import com.top.androidx.tabs.widget.MsgView;
 
 import java.util.ArrayList;
 import java.util.Collections;

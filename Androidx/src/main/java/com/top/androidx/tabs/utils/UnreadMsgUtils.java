@@ -1,11 +1,11 @@
-package com.top.androidx.TabLayout.utils;
+package com.top.androidx.tabs.utils;
 
 
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.top.androidx.TabLayout.widget.MsgView;
+import com.top.androidx.tabs.widget.MsgView;
 
 
 /**

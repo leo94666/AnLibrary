@@ -1,4 +1,4 @@
-package com.top.androidx.TabLayout.listener;
+package com.top.androidx.tabs.listener;
 
 
 import androidx.annotation.DrawableRes;

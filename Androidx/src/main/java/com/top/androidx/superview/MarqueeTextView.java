@@ -1,4 +1,4 @@
-package com.top.androidx.SuperView;
+package com.top.androidx.superview;
 
 import android.content.Context;
 import android.util.AttributeSet;

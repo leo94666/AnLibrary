@@ -1,4 +1,4 @@
-package com.top.androidx.TabLayout.widget;
+package com.top.androidx.tabs.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

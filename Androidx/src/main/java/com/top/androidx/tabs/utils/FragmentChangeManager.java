@@ -1,4 +1,4 @@
-package com.top.androidx.TabLayout.utils;
+package com.top.androidx.tabs.utils;
 
 
 import androidx.fragment.app.Fragment;

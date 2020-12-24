@@ -1,4 +1,4 @@
-package com.top.androidx.SuperView;
+package com.top.androidx.superview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

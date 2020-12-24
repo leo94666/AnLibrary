@@ -19,4 +19,24 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+    <com.top.androidx.tabs.SlidingTabLayout
+        android:id="@+id/tab_layout"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#666666"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        app:tl_indicator_gravity="TOP"
+        app:tl_textBold="SELECT"
+        app:tl_underline_color="#1A000000"
+        app:tl_underline_gravity="TOP"
+        app:tl_underline_height="1dp"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
