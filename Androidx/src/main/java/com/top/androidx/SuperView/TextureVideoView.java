@@ -17,6 +17,9 @@ import android.widget.MediaController;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * 仿VideoVideo
+ */
 public class TextureVideoView extends TextureView implements MediaController.MediaPlayerControl {
     private static final String TAG = "TextureVideoView";
 
