@@ -78,5 +78,31 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
         //ToastUtils.showToast(getContext(), msg);
     }
 
+    @Override
+    public void hideBottomUIMenu() {
+        //隐藏虚拟按键，并且全屏
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+            View v = getActivity().getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            //for new api versions.
+            View decorView = getActivity().getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
 
+    @Override
+    public void showBottomUIMenu() {
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
+            //低版本sdk
+            View v1 = getActivity().getWindow().getDecorView();
+            v1.setSystemUiVisibility(View.VISIBLE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            View decorView = getActivity().getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
 }

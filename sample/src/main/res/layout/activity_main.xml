@@ -40,4 +40,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         tools:ignore="MissingConstraints" />
 
+
+    <com.top.androidx.badge.BadgeImageView
+        android:id="@+id/badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:pointColor="@color/colorPrimaryDark"
+        app:textColor="@color/colorAccent"
+        app:show="true"
+        app:textSize="30px"
+        app:textMargin="12px"
+        app:noNumRadius="9dp"
+        app:bgShape="circle"
+        app:pointText="3"
+        android:src="@drawable/ic_launcher_background"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

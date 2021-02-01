@@ -17,6 +17,9 @@ public interface BaseInterface {
 
     void exitFullScreen();
 
+    void hideBottomUIMenu();
+
+    void showBottomUIMenu();
 
     void hideKeyboard(IBinder token);
 
