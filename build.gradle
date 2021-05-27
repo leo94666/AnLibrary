@@ -20,10 +20,10 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.1"
+        classpath 'com.android.tools.build:gradle:4.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2"
         classpath "com.github.dcendents:android-maven-gradle-plugin:$android_maven_version"
     }
 }
