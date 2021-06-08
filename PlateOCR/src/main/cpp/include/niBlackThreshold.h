@@ -1,12 +1,12 @@
-//
-// Created by 庾金科 on 26/10/2017.
-//
+
 
 #ifndef SWIFTPR_NIBLACKTHRESHOLD_H
 #define SWIFTPR_NIBLACKTHRESHOLD_H
 
 
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/types_c.h>
+
 using namespace cv;
 
 enum LocalBinarizationMethods{

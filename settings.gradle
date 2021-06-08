@@ -1,7 +1,12 @@
+rootProject.name = 'AnLibrary'
+
+
 include ':AnUpdate'
 include ':SuperInput'
 include ':Androidx'
 include ':AnArch'
 include ':sample'
 include ':openCVLibrary452'
+project(':openCVLibrary452').projectDir = new File('sdk')
+
 include ':PlateOCR'

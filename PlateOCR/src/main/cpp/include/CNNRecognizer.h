@@ -1,6 +1,4 @@
-//
-// Created by 庾金科 on 21/10/2017.
-//
+
 
 #ifndef SWIFTPR_CNNRECOGNIZER_H
 #define SWIFTPR_CNNRECOGNIZER_H

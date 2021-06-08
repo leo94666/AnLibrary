@@ -1,6 +1,4 @@
-//
-// Created by 庾金科 on 20/10/2017.
-//
+
 
 
 #ifndef SWIFTPR_RECOGNIZER_H

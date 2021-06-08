@@ -5,46 +5,42 @@
 
 cmake_minimum_required(VERSION 3.10.2)
 
+message("CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
+message(STATUS "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
+# message(WARNING "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
+# 添加日志打印出来
+message("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA>>>>>>>>>>")
+message("当前CMake的路径是：${CMAKE_SOURCE_DIR}")
+
 # Declares and names the project.
 
 project("PlateOCR")
-#set(OpenCV_DIR /Users/mac02/Downloads/OpenCV-android/sdk/native/jni)
-set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/opencv452/sdk/native/jni)
+message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 
-reates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds them for you.
-# Gradle automatically packages shared libraries with your APK.
+set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../sdk/native/jni)
+
+message(STATUS "OpenCV libraries: ${OpenCV_DIR}")
+
+find_package(OpenCV  NAMES OpenCV REQUIRED) #或者用find_package(OpenCV REQUIRED)
+if(OpenCV_FOUND)
+    message(STATUS "The Opecv lib is found!")
+endif()
+
+message(STATUS "OpenCV libraries: ${OpenCV_LIBS}")
+
+aux_source_directory(. SOURCES1)
+aux_source_directory(./src SOURCES2)
+list (APPEND SOURCES
+        ${SOURCES1}
+        ${SOURCES2})
+
+message(STATUS "My sources: ${SOURCES}")
 
 add_library( # Sets the name of the library.
-        javaWarpper
-
+        hyperlpr
         # Sets the library as a shared library.
         SHARED
-
         # Provides a relative path to your source file(s).
-        javaWarpper.cpp )
+        ${SOURCES})
 
-# Searches for a specified prebuilt library and stores the path as a
-# variable. Because CMake includes system libraries in the search path by
-# default, you only need to specify the name of the public NDK library
-# you want to add. CMake verifies that the library exists before
-# completing its build.
-
-find_library( # Sets the name of the path variable.
-        log-lib
-
-        # Specifies the name of the NDK library that
-        # you want CMake to locate.
-        log )
-
-# Specifies libraries CMake should link to your target library. You
-# can link multiple libraries, such as libraries you define in this
-# build script, prebuilt third-party libraries, or system libraries.
-
-target_link_libraries( # Specifies the target library.
-        javaWarpper
-
-        # Links the target library to the log library
-        # included in the NDK.
-        ${log-lib} )
+target_link_libraries(hyperlpr jnigraphics ${OpenCV_LIBS})

@@ -1,6 +1,4 @@
-//
-// Created by 庾金科 on 20/09/2017.
-//
+
 
 #ifndef SWIFTPR_PLATEINFO_H
 #define SWIFTPR_PLATEINFO_H

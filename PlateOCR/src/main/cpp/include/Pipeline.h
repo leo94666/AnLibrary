@@ -1,6 +1,4 @@
-//
-// Created by 庾金科 on 22/10/2017.
-//
+
 
 #ifndef SWIFTPR_PIPLINE_H
 #define SWIFTPR_PIPLINE_H
