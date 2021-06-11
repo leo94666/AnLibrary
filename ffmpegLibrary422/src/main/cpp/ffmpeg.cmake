@@ -8,6 +8,7 @@ set(FFMPEG_VERSION 4.2.2)
 set(FFMPEG_NAME ffmpeg-${FFMPEG_VERSION})
 set(FFMPEG_URL https://ffmpeg.org/releases/${FFMPEG_NAME}.tar.bz2)
 
+message("ffmpeg url : ${FFMPEG_URL}")
 # 得到一个完整文件名中的特定部分
 get_filename_component(FFMPEG_ARCHIVE_NAME ${FFMPEG_URL} NAME)
 
@@ -22,7 +23,7 @@ IF(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME})
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
-    file(REMOVE ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_ARCHIVE_NAME})
+    # file(REMOVE ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_ARCHIVE_NAME})
 
     # We're patching exit just before return in main function of ffmpeg.c because it will crash the application
     file(READ ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c ffmpeg_src)
@@ -88,6 +89,7 @@ IF (${CMAKE_ANDROID_ARCH_ABI} STREQUAL x86)
 ENDIF()
 
 string(REPLACE ";" "|" FFMPEG_CONFIGURE_EXTRAS_ENCODED "${FFMPEG_CONFIGURE_EXTRAS}")
+#创建一个外部工程可以驱动下载、更新/补丁、配置、构建、安装和测试流程的自定义目标
 ExternalProject_Add(ffmpeg_target
         PREFIX ffmpeg_pref
         URL ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}

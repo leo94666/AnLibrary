@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.4.1)
 
 set(LIBX264_URL https://code.videolan.org/videolan/x264/-/archive/master/x264-master.tar.bz2)
 
+message("x264 url : ${LIBX264_URL}")
+
 get_filename_component(LIBX264_ARCHIVE_NAME ${LIBX264_URL} NAME)
 get_filename_component(LIBX264_NAME ${LIBX264_URL} NAME_WE)
 
@@ -15,7 +17,7 @@ IF (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME})
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
-    file(REMOVE ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_ARCHIVE_NAME})
+    # file(REMOVE ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_ARCHIVE_NAME})
 
     # We're patching install step manually because it installs libx264 with version suffix and Android won't have it
     file(READ ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME}/configure configure_src)
