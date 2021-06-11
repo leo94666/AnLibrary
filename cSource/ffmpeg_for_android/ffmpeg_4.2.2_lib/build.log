@@ -1,0 +1,25 @@
+* buidl for arm64-v8a start !!
+* config for arm64-v8a ret:1
+* config for arm64-v8a failed !!
+*************************
+* buidl for arm64-v8a end !!
+*************************
+* buidl for armeabi-v7a start !!
+* config for armeabi-v7a ret:0
+* make for armeabi-v7a return:0
+*************************
+* buidl for armeabi-v7a end !!
+*************************
+* buidl for x86 start !!
+* config for x86 ret:1
+* config for x86 failed !!
+*************************
+* buidl for x86 end !!
+*************************
+
+* buidl for x86_64 start !!
+* config for x86_64 ret:1
+* config for x86_64 failed !!
+*************************
+* buidl for x86_64 end !!
+*************************
