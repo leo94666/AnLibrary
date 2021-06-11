@@ -11,3 +11,6 @@ project(':openCVLibrary452').projectDir = new File('sdk')
 
 include ':PlateOCR'
 include ':ffmpegLibrary422'
+
+include ':cSource'
+project(':cSource').projectDir = new File('cSource')
