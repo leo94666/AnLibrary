@@ -40,7 +40,7 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved){
 }
 
 int main(int argc, char **argv);
-JNIEXPORT jint JNICALL Java_com_syllogismobile_ffmpeg_1sample_VideoKit_run(
+JNIEXPORT jint JNICALL Java_com_top_ffmpeg_VideoKit_run(
         JNIEnv *env,
         jobject thiz,
         jobjectArray args

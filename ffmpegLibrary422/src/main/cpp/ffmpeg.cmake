@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.4.1)
 
 # ownload ffmepg source
 message("=================================ffmpeg.cmake start===========================")
 
-set(C_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../cSource)
+#set(C_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../cSource)
 set(FFMPEG_VERSION 4.2.2)
 set(FFMPEG_NAME ffmpeg-${FFMPEG_VERSION})
 set(FFMPEG_URL https://ffmpeg.org/releases/${FFMPEG_NAME}.tar.bz2)
@@ -13,29 +13,29 @@ get_filename_component(FFMPEG_ARCHIVE_NAME ${FFMPEG_URL} NAME)
 
 message("FFMPEG_ARCHIVE_NAME: ${FFMPEG_ARCHIVE_NAME}")
 
-IF(NOT EXISTS ${C_SOURCE_DIR}/${FFMPEG_NAME})
+IF(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME})
     #dwnload source
-    file(DOWNLOAD ${FFMPEG_URL} ${C_SOURCE_DIR}/${FFMPEG_ARCHIVE_NAME})
+    file(DOWNLOAD ${FFMPEG_URL} ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_ARCHIVE_NAME})
     # unzip
     execute_process(
-            COMMAND ${CMAKE_COMMAND} -E tar xzf ${C_SOURCE_DIR}/${FFMPEG_ARCHIVE_NAME}
-            WORKING_DIRECTORY ${C_SOURCE_DIR}
+            COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_ARCHIVE_NAME}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
     # We're patching exit just before return in main function of ffmpeg.c because it will crash the application
-    file(READ ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c ffmpeg_src)
+    file(READ ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c ffmpeg_src)
 
     string(REPLACE "exit_program(received_nb_signals ? 255 : main_return_code);" "//exit_program(received_nb_signals ? 255 : main_return_code);" ffmpeg_src "${ffmpeg_src}")
     string(REPLACE "return main_return_code;" "return received_nb_signals ? 255 : main_return_code;" ffmpeg_src "${ffmpeg_src}")
 
-    file(WRITE ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c "${ffmpeg_src}")
+    file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c "${ffmpeg_src}")
 
 ENDIF()
 
 
 file(
         COPY ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg_build_system.cmake
-        DESTINATION ${C_SOURCE_DIR}/${FFMPEG_NAME}
+        DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}
         FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 )
 
@@ -88,7 +88,7 @@ ENDIF()
 string(REPLACE ";" "|" FFMPEG_CONFIGURE_EXTRAS_ENCODED "${FFMPEG_CONFIGURE_EXTRAS}")
 ExternalProject_Add(ffmpeg_target
         PREFIX ffmpeg_pref
-        URL ${C_SOURCE_DIR}/${FFMPEG_NAME}
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}
         DOWNLOAD_NO_EXTRACT 1
         CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env
         PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}
@@ -135,7 +135,7 @@ ExternalProject_Add_Step(
         copy_headers
         COMMAND ${CMAKE_COMMAND}
         -DBUILD_DIR:STRING=${SOURCE_DIR}
-        -DSOURCE_DIR:STRING=${CMAKE_CURRENT_SOURCE_DIR}
+        -DSOURCE_DIR:STRING=${CMAKE_SOURCE_DIR}
         -DFFMPEG_NAME:STRING=${FFMPEG_NAME}
         -DOUT:STRING=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
         -P ${CMAKE_CURRENT_SOURCE_DIR}/copy_headers.cmake
@@ -148,12 +148,12 @@ ExternalProject_Add_Step(
 # FFMPEG EXE SOURCES SECTION: START
 
 set(ffmpeg_src
-        ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/cmdutils.c
-        ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_cuvid.c
-        ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_filter.c
-        ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_hw.c
-        ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_opt.c
-        ${C_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/cmdutils.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_cuvid.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_filter.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_hw.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_opt.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c
         )
 message("=================================ffmpeg.cmake end===========================")
 

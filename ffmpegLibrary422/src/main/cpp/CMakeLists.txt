@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.4.1)
 
 # SET DIRECTORIES SECTION: START
-
+# https://github.com/IljaKosynkin/FFmpeg-Development-Kit
 # We add both directories in the very beggining to make sure all targets specified below can use libs from there
+message("==============CMAKE_LIBRARY_OUTPUT_DIRECTORY:  ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/include)
 
