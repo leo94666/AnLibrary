@@ -17,7 +17,7 @@ if (${STEP} STREQUAL configure)
             --libdir=${PREFIX}
             --prefix=${PREFIX}
             ${CONFIGURE_EXTRAS_ENCODED}
-    )
+            )
 
     execute_process(COMMAND ${CONFIGURE_COMMAND})
 elseif(${STEP} STREQUAL build)

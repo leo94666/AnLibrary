@@ -13,6 +13,8 @@ include(ExternalProject)
 
 set(FFMPEG_LIBS avutil swresample avcodec avformat swscale avfilter avdevice)
 set(FFMPEG_CONFIGURE_EXTRAS --enable-jni --enable-mediacodec)
+
+message("======LIB_X264_ENABLED:  ${LIB_X264_ENABLED}")
 IF (${LIB_X264_ENABLED})
     include(libx264.cmake)
 

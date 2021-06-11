@@ -22,6 +22,8 @@ IF(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME})
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
+    file(REMOVE ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_ARCHIVE_NAME})
+
     # We're patching exit just before return in main function of ffmpeg.c because it will crash the application
     file(READ ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c ffmpeg_src)
 

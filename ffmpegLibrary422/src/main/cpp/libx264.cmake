@@ -1,34 +1,35 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 # LIBX264 FETCH SECTION: START
-set(C_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../cSource)
 
 set(LIBX264_URL https://code.videolan.org/videolan/x264/-/archive/master/x264-master.tar.bz2)
 
 get_filename_component(LIBX264_ARCHIVE_NAME ${LIBX264_URL} NAME)
 get_filename_component(LIBX264_NAME ${LIBX264_URL} NAME_WE)
 
-IF (NOT EXISTS ${C_SOURCE_DIR}/${LIBX264_NAME})
-    file(DOWNLOAD ${LIBX264_URL} ${C_SOURCE_DIR}/${LIBX264_ARCHIVE_NAME})
+IF (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME})
+    file(DOWNLOAD ${LIBX264_URL} ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_ARCHIVE_NAME})
 
     execute_process(
-            COMMAND ${CMAKE_COMMAND} -E tar xzf ${C_SOURCE_DIR}/${LIBX264_ARCHIVE_NAME}
-            WORKING_DIRECTORY ${C_SOURCE_DIR}
+            COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_ARCHIVE_NAME}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
-    # We're patching install step manually because it installs libx264 with version suffix and Android won't have it
-    file(READ ${C_SOURCE_DIR}/${LIBX264_NAME}/configure configure_src)
-    string(REPLACE "echo \"SONAME=libx264.so.$API\" >> config.mak" "echo \"SONAME=libx264.so\" >> config.mak" configure_src "${configure_src}")
-    file(WRITE ${C_SOURCE_DIR}/${LIBX264_NAME}/configure "${configure_src}")
+    file(REMOVE ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_ARCHIVE_NAME})
 
-    file(READ ${C_SOURCE_DIR}/${LIBX264_NAME}/Makefile makefile_src)
+    # We're patching install step manually because it installs libx264 with version suffix and Android won't have it
+    file(READ ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME}/configure configure_src)
+    string(REPLACE "echo \"SONAME=libx264.so.$API\" >> config.mak" "echo \"SONAME=libx264.so\" >> config.mak" configure_src "${configure_src}")
+    file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME}/configure "${configure_src}")
+
+    file(READ ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME}/Makefile makefile_src)
     string(REPLACE "ln -f -s $(SONAME) $(DESTDIR)$(libdir)/libx264.$(SOSUFFIX)" "# ln -f -s $(SONAME) $(DESTDIR)$(libdir)/libx264.$(SOSUFFIX)" makefile_src "${makefile_src}")
-    file(WRITE ${C_SOURCE_DIR}/${LIBX264_NAME}/Makefile "${makefile_src}")
+    file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME}/Makefile "${makefile_src}")
 ENDIF()
 
 file(
         COPY ${CMAKE_CURRENT_SOURCE_DIR}/libx264_build_system.cmake
-        DESTINATION ${C_SOURCE_DIR}/${LIBX264_NAME}
+        DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME}
         FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 )
 
@@ -96,37 +97,37 @@ string(REPLACE ";" "|" LIBX264_CONFIGURE_EXTRAS_ENCODED "${LIBX264_CONFIGURE_EXT
 # LIBX264 EXTERNAL PROJECT CONFIG SECTION: START
 ExternalProject_Add(libx264_target
         PREFIX libx264_pref
-        URL ${C_SOURCE_DIR}/${LIBX264_NAME}
+        URL ${CMAKE_CURRENT_SOURCE_DIR}/${LIBX264_NAME}
         DOWNLOAD_NO_EXTRACT 1
         CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env
-            CC=${LIBX264_CC}
-            AS=${LIBX264_AS}
-            AR=${LIBX264_AR}
-            RANLIB=${LIBX264_RANLIB}
-            STRIP=${LIBX264_STRIP}
-            ${CMAKE_COMMAND}
-                -DSTEP:STRING=configure
-                -DHOST:STRING=${ANDROID_LLVM_TRIPLE}
-                -DSYSROOT:STRING=${CMAKE_SYSROOT}
-                -DC_FLAGS:STRING=${LIBX264_C_FLAGS}
-                -DAS_FLAGS:STRING=${LIBX264_ASM_FLAGS}
-                -DLD_FLAGS:STRING=${LIBX264_LD_FLAGS}
-                -DPREFIX:STRING=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
-                -DCONFIGURE_EXTRAS:STRING=${LIBX264_CONFIGURE_EXTRAS_ENCODED}
-            -P libx264_build_system.cmake
+        CC=${LIBX264_CC}
+        AS=${LIBX264_AS}
+        AR=${LIBX264_AR}
+        RANLIB=${LIBX264_RANLIB}
+        STRIP=${LIBX264_STRIP}
+        ${CMAKE_COMMAND}
+        -DSTEP:STRING=configure
+        -DHOST:STRING=${ANDROID_LLVM_TRIPLE}
+        -DSYSROOT:STRING=${CMAKE_SYSROOT}
+        -DC_FLAGS:STRING=${LIBX264_C_FLAGS}
+        -DAS_FLAGS:STRING=${LIBX264_ASM_FLAGS}
+        -DLD_FLAGS:STRING=${LIBX264_LD_FLAGS}
+        -DPREFIX:STRING=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+        -DCONFIGURE_EXTRAS:STRING=${LIBX264_CONFIGURE_EXTRAS_ENCODED}
+        -P libx264_build_system.cmake
         BUILD_COMMAND ${CMAKE_COMMAND}
-            -DSTEP:STRING=build
-            -DNJOBS:STRING=${NJOBS}
-            -DHOST_TOOLCHAIN:STRING=${HOST_BIN}
+        -DSTEP:STRING=build
+        -DNJOBS:STRING=${NJOBS}
+        -DHOST_TOOLCHAIN:STRING=${HOST_BIN}
         -P libx264_build_system.cmake
         BUILD_IN_SOURCE 1
         INSTALL_COMMAND ${CMAKE_COMMAND}
-            -DSTEP:STRING=install
-            -DHOST_TOOLCHAIN:STRING=${HOST_BIN}
+        -DSTEP:STRING=install
+        -DHOST_TOOLCHAIN:STRING=${HOST_BIN}
         -P libx264_build_system.cmake
         LOG_BUILD 1
         LOG_INSTALL 1
         LOG_CONFIGURE 1
-)
+        )
 
 # LIBX264 EXTERNAL PROJECT CONFIG SECTION: END
