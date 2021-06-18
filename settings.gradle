@@ -8,9 +8,10 @@ include ':AnArch'
 include ':sample'
 //include ':openCVLibrary452'
 //project(':openCVLibrary452').projectDir = new File('sdk')
-//
-//include ':PlateOCR'
+
+include ':PlateOCR'
 include ':ffmpegLibrary422'
 
 //include ':cSource'
 //project(':cSource').projectDir = new File('cSource')
+include ':HCNetSDK'
