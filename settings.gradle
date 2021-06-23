@@ -14,4 +14,4 @@ include ':ffmpegLibrary422'
 
 //include ':cSource'
 //project(':cSource').projectDir = new File('cSource')
-include ':HCNetSDK'
+//include ':HCNetSDK'
