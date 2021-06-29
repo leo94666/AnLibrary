@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>WEB唤起原生APP</title>
+</head>
+
+<body>
+
+<h4>WEB唤起原生APP(带数据)</h4>
+
+<a href="schemedemo://eric.com:8080/test/scheme?name=google&page=1"> Simple Launch with parameters </a>
+
+<div>
+    <form name="my">
+        scheme:<br>
+        <input type="text" name="scheme" placeholder="请入指定Activity的Scheme">
+        <br>
+        <br>
+        host:<br>
+        <input type="text"name="host" placeholder="请输入指定Activity的host">
+        <br>
+        <br>
+        port:<br>
+        <input type="text" name="port" placeholder="请输入指定Activity的port">
+        <br>
+        <br>
+        path:<br>
+        <input type="text" name="path" placeholder="请输入指定Activity的path">
+        <br>
+        <br>
+        query parameter:<br>
+        <input type="text" name="parameter" placeholder="请输入传给Activity的参数">
+
+        <br>
+        <br>
+        result:<br>
+        <input type="text" name="result" disabled="disabled">
+
+    </form>
+    <br>
+    <br>
+    <br>
+
+  <button onclick="launch()">Launch Activity</button>
+</div>
+<script>
+     function launch() {
+         var url = my.scheme.value+"://"+my.host.value+":"+my.port.value+my.path.value;
+         alert(url);
+         window.location.href=url;
+         my.result.value = url;
+     }
+</script>
+
+
+</body>
+
+
+</html>
