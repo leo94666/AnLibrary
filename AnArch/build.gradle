@@ -47,6 +47,8 @@ dependencies {
 
     //implementation "com.blankj:utilcode:$android_tool_blankj_version"
 
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
 
     def rxjava_versions = "2.2.16"
     api "io.reactivex.rxjava2:rxjava:$rxjava_versions"

@@ -9,7 +9,7 @@
 
 <h4>WEB唤起原生APP(带数据)</h4>
 
-<a href="xg://com.android.xg.ebs:8089/patient?name=google&page=1"> Simple Launch with parameters </a>
+<!--<a href="xg://com.android.xg.ebs:8089/patient?name=google&page=1"> Simple Launch with parameters </a>-->
 
 <div>
     <form name="my">
@@ -42,7 +42,8 @@
     <br>
     <br>
 
-  <button onclick="launch()">Launch Activity</button>
+
+    <a id="launch_a" href="javascript:void(0);" onclick="launch()">Launch Activity</a>
 </div>
 <script>
      //创建a标签，设置属性，点击
@@ -57,11 +58,12 @@
           }
           document.body.appendChild(a);
           a.click();
-     },
+     };
      function launch() {
          var url = my.scheme.value+"://"+my.host.value+":"+my.port.value+my.path.value;
          my.result.value = url;
-         alert(url);
+         alert("T");
+         document.getElementById("launch_a").href = url;
      }
 
 </script>
