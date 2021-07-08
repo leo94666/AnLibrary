@@ -45,6 +45,7 @@ class WebActivity : AppCompatActivity() {
         setContentView(R.layout.activity_webview)
 
         web_view.settings.javaScriptEnabled=true
+        web_view.settings.javaScriptCanOpenWindowsAutomatically = true
 
         web_view.loadUrl("file:///android_asset/go.html")
 

@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         //SuperToast.create(this,"MMMM",Style.DURATION_VERY_SHORT).show()
 
         val externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        Toast.makeText(this,externalFilesDir?.absolutePath,Toast.LENGTH_LONG).show()
-        Toast.makeText(this,"!!!!!!!!!!!",Toast.LENGTH_LONG).show()
+        Toast.makeText(this, externalFilesDir?.absolutePath, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "!!!!!!!!!!!", Toast.LENGTH_LONG).show()
         tv.setOnClickListener {
             //时间选择器
 
@@ -32,14 +32,5 @@ class MainActivity : AppCompatActivity() {
                         ).show()
                     }).build().show()
         }
-
-
-
-
-
-
-
-
-
     }
 }
