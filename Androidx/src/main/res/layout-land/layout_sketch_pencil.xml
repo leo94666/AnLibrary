@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent2">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_revoke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_revoke_white"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rg_type"
+        app:layout_constraintBottom_toBottomOf="@id/rg_type"
+        android:layout_margin="@dimen/dp_10"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
+    <RadioGroup
+        android:id="@+id/rg_color_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/dp_10"
+        tools:ignore="MissingConstraints">
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_color_black"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+
+            android:button="@drawable/stroke_color_rbtn_black"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_color_red"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+
+            android:button="@drawable/stroke_color_rbtn_red"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_color_yellow"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+
+            android:button="@drawable/stroke_color_rbtn_yelleo"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_color_green"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/stroke_color_rbtn_green"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_color_pueple"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/stroke_color_rbtn_purple"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/ll_seek"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rg_color_type"
+        app:layout_constraintLeft_toLeftOf="@id/rg_color_type"
+        app:layout_constraintRight_toRightOf="@id/rg_color_type"
+        android:padding="@dimen/dp_5">
+
+        <com.top.androidx.superview.CircleView
+            android:id="@+id/iv_seek"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:radius="@dimen/dp_3"
+            android:color="@color/color_black"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:padding="@dimen/dp_5"/>
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:max="100"
+            android:min="5"
+            android:progress="30">
+
+        </androidx.appcompat.widget.AppCompatSeekBar>
+
+    </LinearLayout>
+
+
+
+    <RadioGroup
+        android:id="@+id/rg_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_seek"
+        android:layout_marginLeft="@dimen/dp_10"
+        tools:ignore="MissingConstraints">
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_type_pencil"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:checked="true"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/select_stroke_type_btn_draw"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_type_line"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/select_stroke_type_btn_line"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_type_circle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/select_stroke_type_btn_circle"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_type_rect"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/select_stroke_type_btn_rect"/>
+
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_type_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/select_stroke_type_btn_text"/>
+
+    </RadioGroup>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
