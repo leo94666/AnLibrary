@@ -23,6 +23,6 @@ class ScketchActivity:AppCompatActivity() {
     }
 
     fun go(view: View) {
-        SketchActivity.startSketchActivity(this)
+        SketchActivity.startSketchActivity(this,true,"", "/sdcard/")
     }
 }

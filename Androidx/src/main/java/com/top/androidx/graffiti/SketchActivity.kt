@@ -3,8 +3,10 @@ package com.top.androidx.graffiti
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import com.top.androidx.graffiti.bean.SketchData
 import com.top.androidx.graffiti.bean.StrokeRecord
 import com.top.androidx.graffiti.dialog.BottomSheetDialog
 import com.top.androidx.graffiti.view.PencilView
+import com.top.arch.util.FileUtils
 import com.top.arch.util.ImageUtils
 import com.top.arch.util.SizeUtils
 import com.top.arch.utils.BaseUtils
@@ -32,19 +35,31 @@ public class SketchActivity : AppCompatActivity() {
     private var strokeET: AppCompatEditText? = null //绘制文字的内容
     private var bottomSheetDialog: BottomSheetDialog? = null
 
-    private var defaultSavaPath:String? = null
+    private var defaultSavaPath: String? = null
+
+    private var imgPath: String? = null
 
     companion object {
 
         var SAVE_PATH = "save_path"
+        var IMG_PATH = "img_path"
+        var IS_LAND = "is_land"
         var SEND_TO_FRIEND = 0x10009
 
         /**
          * @param context
          */
-        fun startSketchActivity(context: Activity) {
+        fun startSketchActivity(
+            context: Activity,
+            isLand: Boolean,
+            imgPath: String,
+            savePath: String
+        ) {
             if (BaseUtils.isFastDoubleClick()) return
             val intent = Intent(context, SketchActivity::class.java)
+            intent.putExtra(IS_LAND, isLand)
+            intent.putExtra(SAVE_PATH, savePath)
+            intent.putExtra(IMG_PATH, imgPath)
             context.startActivityForResult(intent, SEND_TO_FRIEND)
         }
     }
@@ -58,29 +73,46 @@ public class SketchActivity : AppCompatActivity() {
 
 
         defaultSavaPath = intent.getStringExtra(SAVE_PATH)
+
+        if (defaultSavaPath.isNullOrBlank()) {
+            defaultSavaPath = "/sdcard/sketch.png"
+        }
+
+
+        var isLand = intent.getBooleanExtra(IS_LAND, false)
+
+        requestedOrientation = if (isLand) {
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+
         sketch_view.setSketchData(SketchData())
+
+        imgPath = intent.getStringExtra(IMG_PATH)
+        if (FileUtils.isFileExists(imgPath)) {
+            sketch_view.setBackgroundByPath(imgPath)
+        }
         initView()
         initListener()
     }
 
     private fun initView() {
-
         //default is pencil
         iv_pencil.setBackgroundResource(R.drawable.ic_pencil_white)
         bottomSheetDialog = BottomSheetDialog()
-
         initTextPop()
     }
 
     private fun initListener() {
-
         bottomSheetDialog?.setOnClickListener(object : BottomSheetDialog.OnClickListener {
             override fun onSend() {
-                val sava = sava()
-                val intent = Intent()
-                intent.putExtra(SAVE_PATH, sava)
-                setResult(SEND_TO_FRIEND, intent)
-                finish()
+//                val sava = sava()
+//                val intent = Intent()
+//                intent.putExtra(SAVE_PATH, sava)
+//                setResult(SEND_TO_FRIEND, intent)
+//                finish()
+                sava()?.let { share(it) }
             }
 
             override fun onSave() {
@@ -147,7 +179,6 @@ public class SketchActivity : AppCompatActivity() {
                     }
                     StrokeType.STROKE_TYPE_TEXT -> {
                         iv_pencil.setBackgroundResource(R.drawable.ic_text_white)
-
                     }
                 }
             }
@@ -193,8 +224,6 @@ public class SketchActivity : AppCompatActivity() {
 
     private fun initTextPop() {
         //文本录入弹窗布局
-        //文本录入弹窗布局
-
         popupTextLayout = LayoutInflater.from(this).inflate(R.layout.popup_sketch_text, null)
         strokeET = popupTextLayout?.findViewById(R.id.text_popwindow_et) as AppCompatEditText
 
@@ -241,10 +270,8 @@ public class SketchActivity : AppCompatActivity() {
         val createBitmap = Bitmap.createBitmap(sketch_view.drawingCache)
         sketch_view.isDrawingCacheEnabled = false
         if (createBitmap != null) {
-            val s = defaultSavaPath + System.currentTimeMillis() + ".png"
-            ImageUtils.save(createBitmap, s, Bitmap.CompressFormat.PNG)
-
-            return s
+            ImageUtils.save(createBitmap, defaultSavaPath, Bitmap.CompressFormat.PNG)
+            return defaultSavaPath
         }
         return null
     }
@@ -253,6 +280,20 @@ public class SketchActivity : AppCompatActivity() {
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.alpha_show, R.anim.alpha_hiden)
+    }
+
+
+    /**
+     * Android原生分享功能
+     * 默认选取手机所有可以分享的APP
+     */
+    fun share(imgPath: String) {
+        var share_intent = Intent()
+        share_intent.action = Intent.ACTION_SEND //设置分享行为
+        share_intent.type = "image/jpeg" //设置分享内容的类型
+        share_intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(imgPath))
+        share_intent = Intent.createChooser(share_intent, "share")
+        startActivity(share_intent)
     }
 
 }
