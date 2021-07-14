@@ -1,4 +1,4 @@
-package com.top.arch.constant;
+package com.top.arch.util.constant;
 
 /**
  * <pre>

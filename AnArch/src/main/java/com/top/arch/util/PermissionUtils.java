@@ -20,7 +20,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 
-import com.top.arch.constant.PermissionConstants;
+import com.top.arch.util.constant.PermissionConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
 
-import com.top.arch.constant.TimeConstants;
+import com.top.arch.util.constant.TimeConstants;
 
 import java.text.DateFormat;
 import java.text.ParseException;

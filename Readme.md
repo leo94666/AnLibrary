@@ -4,16 +4,51 @@
 
 ## Arch包
 
-## Androidx包
+- app
+    - AppManager
+- base
+    - BaseActivity
+    - BaseFragment
+    - BasePureActivity
+    - BaseXFragment
+- navigation
+    - HoldStateNavigator
+- net
+    - HttpsClient
+- service
+    - ScreenCaptureService
+- util
+    - ActivityUtils
+    - AdapterScreenUtils
+    - AnUtils
+    - ApiUtils
+    - AppUtils
+    - ArrayUtils
+    - BarUtils
+    
+- uitls
 
-   - RockerView
-   - SuperView
-     - CircleImageView
-     - MarqueeTextView
-     - SuperCheckBox
-     - SuperFloatingActionButton
-     - TextureVideoView
-   - TabLayout
-     - CommonTabLayout
-     - SegmentTabLayout
-     - SlidingTabLayout
+    
+## Androidx包
+- RockerView
+- SuperView
+   - CircleImageView
+   - MarqueeTextView
+   - SuperCheckBox
+   - SuperFloatingActionButton
+   - TextureVideoView
+- TabLayout
+   - CommonTabLayout
+   - SegmentTabLayout
+   - SlidingTabLayout
+   
+## AnUpdate
+
+
+## ffmpeg
+
+
+## plateOCR
+
+
+## SuperInput

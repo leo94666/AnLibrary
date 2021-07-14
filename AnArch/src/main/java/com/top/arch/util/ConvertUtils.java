@@ -8,8 +8,8 @@ import android.os.Parcelable;
 import android.view.View;
 
 
-import com.top.arch.constant.MemoryConstants;
-import com.top.arch.constant.TimeConstants;
+import com.top.arch.util.constant.MemoryConstants;
+import com.top.arch.util.constant.TimeConstants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

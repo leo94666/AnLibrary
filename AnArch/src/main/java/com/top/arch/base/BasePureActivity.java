@@ -131,9 +131,20 @@ public abstract class BasePureActivity extends AppCompatActivity implements Base
             int height = displayMetrics.heightPixels;
             Log.e(TAG, "displayMetrics width=" + width + ", height=" + height);
             ImageReader mImageReader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2);
-            mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
-            VirtualDisplay virtualDisplay = mediaProjection.createVirtualDisplay("screen-mirror", width, height,
-                    displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, mImageReader.getSurface(), null, null);
+            VirtualDisplay virtualDisplay = null;
+
+            try {
+                mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
+                virtualDisplay = mediaProjection.createVirtualDisplay("screen-mirror", width, height,
+                        displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, mImageReader.getSurface(), null, null);
+            }catch (Exception e){
+                Log.e(TAG, "截图出现异常：" + e.toString());
+                if (virtualDisplay != null) {
+                    virtualDisplay.release();
+                }
+                return;
+            }
+
             new Handler().postDelayed(() -> {
                 try {
                     image = mImageReader.acquireLatestImage();
@@ -165,21 +176,19 @@ public abstract class BasePureActivity extends AppCompatActivity implements Base
                     if (mImageReader != null) {
                         mImageReader.close();
                     }
-                    if (virtualDisplay != null) {
-                        virtualDisplay.release();
-                    }
                     //必须代码，否则出现BufferQueueProducer: [ImageReader] dequeueBuffer: BufferQueue has been abandoned
                     mImageReader.setOnImageAvailableListener(null, null);
-                    mediaProjection.stop();
+                    if (mediaProjection!=null){
+                        mediaProjection.stop();
+                    }
                 }
-            }, 200);
+            }, 120);
         }
     }
 
     @RequiresApi(api = 28)
     public void takeScreenShot() {
-        mediaProjectionManager = (MediaProjectionManager)
-                getApplication().getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+        mediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), EVENT_SCREENSHOT);
     }
 

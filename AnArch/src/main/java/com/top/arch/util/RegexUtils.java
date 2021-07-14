@@ -4,7 +4,7 @@ package com.top.arch.util;
 import androidx.collection.SimpleArrayMap;
 
 
-import com.top.arch.constant.RegexConstants;
+import com.top.arch.util.constant.RegexConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
