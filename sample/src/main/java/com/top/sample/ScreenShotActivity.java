@@ -8,6 +8,7 @@ import com.top.androidx.superview.TextureVideoView;
 import com.top.arch.base.BasePureActivity;
 import com.top.arch.util.ImageUtils;
 
+
 public class ScreenShotActivity extends BasePureActivity {
     @Override
     public int getLayout() {

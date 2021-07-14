@@ -20,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -27,6 +28,7 @@ import androidx.databinding.ViewDataBinding;
 import com.top.arch.app.AppManager;
 
 import java.nio.ByteBuffer;
+
 
 
 public abstract class BasePureActivity extends AppCompatActivity implements BaseInterface {
@@ -174,6 +176,7 @@ public abstract class BasePureActivity extends AppCompatActivity implements Base
         }
     }
 
+    @RequiresApi(api = 28)
     public void takeScreenShot() {
         mediaProjectionManager = (MediaProjectionManager)
                 getApplication().getSystemService(Context.MEDIA_PROJECTION_SERVICE);
