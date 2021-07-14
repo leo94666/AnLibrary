@@ -29,10 +29,9 @@ import com.top.arch.app.AppManager;
 import java.nio.ByteBuffer;
 
 
-public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity implements BaseInterface {
+public abstract class BasePureActivity extends AppCompatActivity implements BaseInterface {
 
     private static final String TAG = "BaseActivity";
-    protected B mDataBinding;
 
     public abstract int getLayout();
 
@@ -56,8 +55,8 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        mDataBinding = DataBindingUtil.setContentView(this, getLayout());
-        init(mDataBinding.getRoot());
+        setContentView(getLayout());
+        init(this.getWindow().getDecorView());
     }
 
     @Override
@@ -171,7 +170,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
                     mImageReader.setOnImageAvailableListener(null, null);
                     mediaProjection.stop();
                 }
-            }, 100);
+            }, 200);
         }
     }
 

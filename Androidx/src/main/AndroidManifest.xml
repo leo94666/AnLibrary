@@ -4,7 +4,9 @@
     <application>
 
         <activity android:name=".graffiti.SketchActivity"
-            android:label="Graffiti">
+            android:label="Graffiti"
+            android:screenOrientation="fullSensor"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

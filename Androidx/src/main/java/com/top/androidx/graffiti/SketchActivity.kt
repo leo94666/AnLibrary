@@ -68,9 +68,16 @@ public class SketchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        overridePendingTransition(R.anim.alpha_show, R.anim.alpha_hiden)
-        setContentView(R.layout.activity_sketch)
 
+        var isLand = intent.getBooleanExtra(IS_LAND, false)
+        requestedOrientation = if (isLand) {
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+        overridePendingTransition(R.anim.alpha_show, R.anim.alpha_hiden)
+
+        setContentView(R.layout.activity_sketch)
 
         defaultSavaPath = intent.getStringExtra(SAVE_PATH)
 
@@ -79,13 +86,7 @@ public class SketchActivity : AppCompatActivity() {
         }
 
 
-        var isLand = intent.getBooleanExtra(IS_LAND, false)
 
-        requestedOrientation = if (isLand) {
-            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        } else {
-            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
 
         sketch_view.setSketchData(SketchData())
 
