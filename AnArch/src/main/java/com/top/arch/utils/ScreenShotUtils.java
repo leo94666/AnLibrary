@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 import android.view.TextureView;
@@ -46,6 +47,11 @@ public class ScreenShotUtils {
         } else {
             return view2Bitmap(view);
         }
+    }
+
+    public static Bitmap screenShot(@NonNull final View view, boolean has, Rect rect) {
+        Bitmap bitmap = screenShot(view, has);
+        return cut(bitmap,rect);
     }
 
 
@@ -112,6 +118,12 @@ public class ScreenShotUtils {
         cv.restore();
         return bitmap;
     }
+
+    private static Bitmap cut(Bitmap parentBitmap, Rect rect) {
+        Bitmap bitmap = Bitmap.createBitmap(parentBitmap, rect.left, rect.top, rect.width(), rect.height());
+        return bitmap;
+    }
+
 
     private static int getStatusBarHeight(Activity activity) {
         Resources resources = activity.getResources();
