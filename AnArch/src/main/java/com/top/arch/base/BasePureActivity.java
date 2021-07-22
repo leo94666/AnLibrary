@@ -169,6 +169,7 @@ public abstract class BasePureActivity extends AppCompatActivity implements Base
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "截图出现异常：" + e.toString());
+                    onScreenShot(null);
                 } finally {
                     if (image != null) {
                         image.close();

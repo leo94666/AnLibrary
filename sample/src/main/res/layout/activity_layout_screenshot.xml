@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl_parent"
+    android:id="@+id/ll_parent"
     android:orientation="vertical"
     >
     <com.top.androidx.superview.TextureVideoView
         android:layout_height="300dp"
         android:layout_width="300dp"
         android:id="@+id/video_t"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:layout_margin="@dimen/dp_20">
 
     </com.top.androidx.superview.TextureVideoView>
 
@@ -18,9 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="shot"
+        android:onClick="shot" />
 
-        android:onClick="shot"
-
-        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="shot View"
+        android:onClick="shotView" />
 
 </LinearLayout>
