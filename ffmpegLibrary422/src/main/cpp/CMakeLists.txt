@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.4.1)
-
+message("CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
+message(STATUS "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
+message(WARNING "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
 # SET DIRECTORIES SECTION: START
 # https://github.com/IljaKosynkin/FFmpeg-Development-Kit
 # We add both directories in the very beggining to make sure all targets specified below can use libs from there
-message("==============CMAKE_LIBRARY_OUTPUT_DIRECTORY:  ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+#message("==============CMAKE_LIBRARY_OUTPUT_DIRECTORY:  ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/include)
 

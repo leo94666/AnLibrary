@@ -2,6 +2,7 @@ package com.top.androidx.graffiti;
 
 public enum StrokeColor {
 
+    STROKE_COLOR_WHITE("#00000000"),
     STROKE_COLOR_BLACK("#ff000000"),
     STROKE_COLOR_RED("#ffff4444"),
     STROKE_COLOR_YELLOW("#ffff00"),

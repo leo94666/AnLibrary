@@ -111,7 +111,10 @@ public class PencilView extends ConstraintLayout {
             if (onSelectClickListener==null){
                 return;
             }
-            if (checkedId == R.id.stroke_color_black) {
+            if (checkedId == R.id.stroke_color_white) {
+                onSelectClickListener.onSelectColor(StrokeColor.STROKE_COLOR_WHITE);
+                circleView.setColor(StrokeColor.STROKE_COLOR_WHITE.getColor());
+            }else if (checkedId == R.id.stroke_color_black) {
                 onSelectClickListener.onSelectColor(StrokeColor.STROKE_COLOR_BLACK);
                 circleView.setColor(StrokeColor.STROKE_COLOR_BLACK.getColor());
             } else if (checkedId == R.id.stroke_color_green) {

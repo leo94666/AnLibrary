@@ -201,6 +201,17 @@
             android:padding="@dimen/dp_5"
             android:button="@drawable/stroke_color_rbtn_purple"/>
 
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/stroke_color_white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="@dimen/dp_10"
+            android:padding="@dimen/dp_5"
+            android:button="@drawable/stroke_color_rbtn_white"/>
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
