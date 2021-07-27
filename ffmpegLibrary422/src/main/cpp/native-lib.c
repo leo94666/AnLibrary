@@ -10,7 +10,7 @@
 static int pfd[2];
 static pthread_t thr;
 static const char *tag = "VideoKit";
-5932
+
 static void* thread_func(void* in) {
     ssize_t rdsz;
     char buf[128];

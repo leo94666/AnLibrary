@@ -18,13 +18,14 @@ public class ScreenShotUtils {
     private static String TAG = "ScreenShotUtils";
 
 
-    public static Bitmap screenShot(@NonNull final Activity activity) {
-        return screenShot(activity, false);
-    }
-
-    public static Bitmap screenShot(@NonNull final Activity activity, boolean isDeleteStatusBar) {
+    public static Bitmap screenShot(@NonNull final Activity activity, boolean isDeleteStatusBar, boolean has) {
         View decorView = activity.getWindow().getDecorView();
-        Bitmap bmp = view2Bitmap(decorView);
+        Bitmap bmp;
+        if (has) {
+            bmp = viewGroup2Bitmap((ViewGroup) decorView);
+        } else {
+            bmp = view2Bitmap(decorView);
+        }
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         if (isDeleteStatusBar) {
@@ -41,17 +42,24 @@ public class ScreenShotUtils {
         }
     }
 
+    public static Bitmap screenShot(@NonNull final Activity activity, boolean has) {
+        return screenShot(activity, true, has);
+    }
+
+
     public static Bitmap screenShot(@NonNull final View view, boolean has) {
+        Bitmap bmp;
         if (has) {
-            return viewGroup2Bitmap((ViewGroup) view);
+            bmp = viewGroup2Bitmap((ViewGroup) view);
         } else {
-            return view2Bitmap(view);
+            bmp = view2Bitmap(view);
         }
+        return bmp;
     }
 
     public static Bitmap screenShot(@NonNull final View view, boolean has, Rect rect) {
         Bitmap bitmap = screenShot(view, has);
-        return cut(bitmap,rect);
+        return cut(bitmap, rect);
     }
 
 
@@ -90,7 +98,7 @@ public class ScreenShotUtils {
         Bitmap newBitmap = null;
         int childCount = viewGroup.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            View child = viewGroup.getChildAt(0);
+            View child = viewGroup.getChildAt(i);
             int top = child.getTop();
             int left = child.getLeft();
             if (child instanceof SurfaceView) {
