@@ -30,6 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.top.androidx.graffiti.SketchActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="fullSensor">
+        </activity>
         <activity android:name=".ScketchActivity"
             android:screenOrientation="landscape"
             android:label="Scket">
