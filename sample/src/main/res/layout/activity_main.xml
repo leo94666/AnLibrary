@@ -7,7 +7,15 @@
     tools:context=".MainActivity">
 
 
+    <com.top.androidx.superview.ClickView
+        android:id="@+id/click"
+        android:layout_width="@dimen/dp_500"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/black"
+        tools:ignore="MissingConstraints">
 
+    </com.top.androidx.superview.ClickView>
 
 
     <TextView

@@ -30,7 +30,7 @@ import com.top.arch.app.AppManager;
 import java.nio.ByteBuffer;
 
 
-
+@Deprecated
 public abstract class BasePureActivity extends AppCompatActivity implements BaseInterface {
 
     private static final String TAG = "BaseActivity";
