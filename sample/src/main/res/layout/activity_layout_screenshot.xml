@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/ll_parent"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="@color/color_green"
     >
     <com.top.androidx.superview.TextureVideoView
         android:layout_height="200dp"
@@ -19,9 +19,38 @@
     <VideoView
         android:layout_height="100dp"
         android:layout_width="100dp"
-        android:id="@+id/surface_video"
+        android:id="@+id/video_view"
         android:layout_margin="@dimen/dp_10"
         android:layout_alignParentRight="true"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_210"
+        android:layout_below="@id/texture_video"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/color_red">
+
+        <com.top.androidx.superview.TextureVideoView
+            android:layout_height="200dp"
+            android:layout_width="200dp"
+            android:id="@+id/rl_texture_video"
+            android:layout_margin="@dimen/dp_10">
+
+        </com.top.androidx.superview.TextureVideoView>
+
+
+        <VideoView
+            android:layout_height="200dp"
+            android:layout_width="200dp"
+            android:id="@+id/rl_video_view"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+
 
 
     <androidx.appcompat.widget.AppCompatButton

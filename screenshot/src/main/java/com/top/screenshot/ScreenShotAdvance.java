@@ -44,6 +44,7 @@ public class ScreenShotAdvance {
 
     private Bitmap viewGroup2Bitmap(ViewGroup viewGroup) {
         Bitmap bitmap = view2Bitmap(viewGroup);
+        boolean b = hasOverlap(viewGroup);
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View childAt = viewGroup.getChildAt(i);
             if (childAt instanceof ViewGroup) {
@@ -58,16 +59,17 @@ public class ScreenShotAdvance {
                     if (bitmap != null) {
                         bitmap = merge(bitmap, childAt.getLeft(), childAt.getTop(), childBitmap);
                     }
-
                 } else if (childAt instanceof SurfaceView) {
 
                 } else {
                     //bitmap = view2Bitmap(childAt);
+
                 }
             }
         }
         return bitmap;
     }
+
 
     private Bitmap view2Bitmap(View view) {
         if (view == null) return null;
@@ -107,16 +109,38 @@ public class ScreenShotAdvance {
         }
     }
 
-
     public Bitmap screenShot(ViewGroup view) {
         Bitmap bitmap = viewGroup2Bitmap(view);
         return bitmap;
     }
 
+    /**
+     * 判断是否有重叠部分
+     *
+     * @param viewGroup
+     * @return
+     */
+    private boolean hasOverlap(ViewGroup viewGroup) {
+        boolean hasOverlap = false;
+        int childCount = viewGroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            for (int j = i + 1; j < childCount - i; j++) {
+                View childAt = viewGroup.getChildAt(i);
+                View childAt1 = viewGroup.getChildAt(j);
+                boolean overlap = isOverlap(getRect(childAt), getRect(childAt1));
+                hasOverlap |= overlap;
+            }
+        }
+        return hasOverlap;
+    }
 
 
     private boolean isOverlap(Rect rect1, Rect rect2) {
         return !(rect2.bottom < rect1.top || rect1.bottom < rect2.top || rect1.left > rect2.right || rect2.left > rect1.right);
+    }
+
+    private Rect getRect(View view) {
+        return new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getTop());
     }
 
 
