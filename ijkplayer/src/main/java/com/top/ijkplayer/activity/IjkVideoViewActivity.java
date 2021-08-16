@@ -32,7 +32,9 @@ public class IjkVideoViewActivity extends AppCompatActivity {
 
         mVideoView.setHudView(mHudView);
 
-        mVideoView.setVideoPath("https://ebs-1306092442.cos.ap-nanjing.myqcloud.com/%E6%B5%8B%E8%AF%95%E7%97%85%E4%BE%8B/%E7%97%85%E4%BE%8B%E4%BD%A0%E5%A5%BD/tmp5BC4.mp4");
+
+        mVideoView.setVideoPath("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
+        //mVideoView.setVideoPath("https://ebs-1306092442.cos.ap-nanjing.myqcloud.com/%E6%B5%8B%E8%AF%95%E7%97%85%E4%BE%8B/%E7%97%85%E4%BE%8B%E4%BD%A0%E5%A5%BD/tmp5BC4.mp4");
         mVideoView.start();
     }
 }
