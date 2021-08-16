@@ -16,3 +16,4 @@ include ':ffmpegLibrary422'
 //project(':cSource').projectDir = new File('cSource')
 //include ':HCNetSDK'
 include ':screenshot'
+include ':ijkplayer'

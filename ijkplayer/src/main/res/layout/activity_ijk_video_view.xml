@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.top.ijkplayer.widget.media.IjkVideoView
+        android:id="@+id/ijk_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TableLayout
+        android:id="@+id/hud_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:background="@color/ijk_transparent_dark"
+        android:padding="8dp"
+        tools:ignore="MissingConstraints" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
