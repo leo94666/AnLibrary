@@ -20,10 +20,11 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.MediaController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.top.ijkplayer.widget.controller.MediaController;
 
 import java.util.ArrayList;
 
@@ -73,6 +74,7 @@ public class AndroidMediaController extends MediaController implements IMediaCon
             view.setVisibility(View.GONE);
         mShowOnceArray.clear();
     }
+
 
     //----------
     // Extends

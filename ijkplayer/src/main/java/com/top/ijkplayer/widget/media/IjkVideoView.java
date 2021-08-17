@@ -33,7 +33,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.MediaController;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -43,6 +42,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.top.ijkplayer.R;
 import com.top.ijkplayer.application.Settings;
 import com.top.ijkplayer.services.MediaPlayerService;
+import com.top.ijkplayer.widget.controller.MediaController;
 
 import java.io.File;
 import java.io.IOException;
@@ -339,7 +339,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                     (TextUtils.isEmpty(scheme) || scheme.equalsIgnoreCase("file"))) {
                 IMediaDataSource dataSource = new FileMediaDataSource(new File(mUri.toString()));
                 mMediaPlayer.setDataSource(dataSource);
-            }  else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 mMediaPlayer.setDataSource(mAppContext, mUri, mHeaders);
             } else {
                 mMediaPlayer.setDataSource(mUri.toString());
@@ -384,9 +384,8 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private void attachMediaController() {
         if (mMediaPlayer != null && mMediaController != null) {
             mMediaController.setMediaPlayer(this);
-            View anchorView = this.getParent() instanceof View ?
-                    (View) this.getParent() : this;
-            mMediaController.setAnchorView(anchorView);
+            View anchorView = this.getParent() instanceof View ? (View) this.getParent() : this;
+            mMediaController.setAnchorView(this);
             mMediaController.setEnabled(isInPlaybackState());
         }
     }
@@ -567,9 +566,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                                 .setPositiveButton(R.string.VideoView_error_button,
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton) {
-                                            /* If we get here, there is no onError listener, so
-                                             * at least inform them that the video is over.
-                                             */
+                                                /* If we get here, there is no onError listener, so
+                                                 * at least inform them that the video is over.
+                                                 */
                                                 if (mOnCompletionListener != null) {
                                                     mOnCompletionListener.onCompletion(mMediaPlayer);
                                                 }

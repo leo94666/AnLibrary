@@ -18,9 +18,13 @@
 package com.top.ijkplayer.widget.media;
 
 import android.view.View;
-import android.widget.MediaController;
+
+import com.top.ijkplayer.widget.controller.MediaController;
 
 public interface IMediaController {
+    /**
+     *
+     */
     void hide();
 
     boolean isShowing();
