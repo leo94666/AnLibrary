@@ -20,6 +20,7 @@ package com.top.ijkplayer.widget.media;
 import android.view.View;
 
 import com.top.ijkplayer.widget.controller.MediaController;
+import com.top.ijkplayer.widget.controller.MediaPlayerControl;
 
 public interface IMediaController {
     /**
@@ -33,7 +34,7 @@ public interface IMediaController {
 
     void setEnabled(boolean enabled);
 
-    void setMediaPlayer(MediaController.MediaPlayerControl player);
+    void setMediaPlayer(MediaPlayerControl player);
 
     void show(int timeout);
 

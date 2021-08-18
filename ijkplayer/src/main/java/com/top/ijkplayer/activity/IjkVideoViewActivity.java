@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.top.ijkplayer.R;
-import com.top.ijkplayer.widget.controller.BibibiliMediaControllerView;
+import com.top.ijkplayer.widget.controller.BibiBiliMediaController;
 import com.top.ijkplayer.widget.media.AndroidMediaController;
 import com.top.ijkplayer.widget.media.IjkVideoView;
 
@@ -30,19 +30,19 @@ public class IjkVideoViewActivity extends AppCompatActivity {
         mVideoView = (IjkVideoView) findViewById(R.id.ijk_video_view);
 
         AndroidMediaController mMediaController = new AndroidMediaController(this);
-        mMediaController.setAnchorView(mVideoView);
 
+        mMediaController.setAnchorView(mVideoView);
         mMediaController.setPrevNextListeners(v -> {
             Toast.makeText(this, "Next", Toast.LENGTH_SHORT).show();
         }, v -> {
             Toast.makeText(this, "Pre", Toast.LENGTH_SHORT).show();
         });
 
-        BibibiliMediaControllerView bibibiliMediaControllerView = new BibibiliMediaControllerView(this);
+        BibiBiliMediaController bibibiliMediaController = new BibiBiliMediaController(this);
 
 
 
-        mVideoView.setMediaController(mMediaController);
+        mVideoView.setMediaController(bibibiliMediaController);
 
         mVideoView.setHudView(mHudView);
 

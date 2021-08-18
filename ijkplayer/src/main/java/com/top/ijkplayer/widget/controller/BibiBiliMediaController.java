@@ -19,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.top.ijkplayer.R;
@@ -29,35 +28,7 @@ import java.lang.reflect.Constructor;
 import java.util.Formatter;
 import java.util.Locale;
 
-/**
- * A view containing controls for a MediaPlayer. Typically contains the
- * buttons like "Play/Pause", "Rewind", "Fast Forward" and a progress
- * slider. It takes care of synchronizing the controls with the state
- * of the MediaPlayer.
- * <p>
- * The way to use this class is to instantiate it programmatically.
- * The MediaController will create a default set of controls
- * and put them in a window floating above your application. Specifically,
- * the controls will float above the view specified with setAnchorView().
- * The window will disappear if left idle for three seconds and reappear
- * when the user touches the anchor view.
- * <p>
- * Functions like show() and hide() have no effect when MediaController
- * is created in an xml layout.
- *
- * MediaController will hide and
- * show the buttons according to these rules:
- * <ul>
- * <li> The "previous" and "next" buttons are hidden until setPrevNextListeners()
- *   has been called
- * <li> The "previous" and "next" buttons are visible but disabled if
- *   setPrevNextListeners() was called with null listeners
- * <li> The "rewind" and "fastforward" buttons are shown unless requested
- *   otherwise by using the MediaController(Context, boolean) constructor
- *   with the boolean set to false
- * </ul>
- */
-public class MediaController extends FrameLayout implements IMediaController {
+public class BibiBiliMediaController extends FrameLayout implements IMediaController {
 
     private MediaPlayerControl mPlayer;
 
@@ -81,8 +52,8 @@ public class MediaController extends FrameLayout implements IMediaController {
 
     private boolean mShowing;
     private boolean mDragging;
-    private static final int sDefaultTimeout = 5000;
-    private final boolean mUseFastForward;
+    private static final int sDefaultTimeout = 3000;
+    private  boolean mUseFastForward;
     private boolean mFromXml;
     private boolean mListenersSet;
     private View.OnClickListener mNextListener, mPrevListener;
@@ -98,9 +69,9 @@ public class MediaController extends FrameLayout implements IMediaController {
     private ImageButton mPrevButton;
     private CharSequence mPlayDescription;
     private CharSequence mPauseDescription;
-    private final AccessibilityManager mAccessibilityManager;
+    private  AccessibilityManager mAccessibilityManager;
 
-    public MediaController(Context context, AttributeSet attrs) {
+    public BibiBiliMediaController(Context context, AttributeSet attrs) {
         super(context, attrs);
         mRoot = this;
         mContext = context;
@@ -109,7 +80,7 @@ public class MediaController extends FrameLayout implements IMediaController {
         mAccessibilityManager = (AccessibilityManager) mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
     }
 
-    public MediaController(Context context, boolean useFastForward) {
+    public BibiBiliMediaController(Context context, boolean useFastForward) {
         super(context);
         mContext = context;
         mUseFastForward = useFastForward;
@@ -119,9 +90,10 @@ public class MediaController extends FrameLayout implements IMediaController {
         mAccessibilityManager = (AccessibilityManager) mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
     }
 
-    public MediaController(Context context) {
+    public BibiBiliMediaController(Context context) {
         this(context, true);
     }
+
 
     @Override
     public void onFinishInflate() {
@@ -192,8 +164,9 @@ public class MediaController extends FrameLayout implements IMediaController {
 
         WindowManager.LayoutParams p = mDecorLayoutParams;
         p.width = mAnchor.getWidth();
-        p.x = anchorPos[0] + (mAnchor.getWidth() - p.width) / 2;
-        p.y = anchorPos[1] + mAnchor.getHeight() - mDecor.getMeasuredHeight();
+        p.height = mAnchor.getHeight();
+        p.x = anchorPos[0];
+        p.y = anchorPos[1];
     }
 
     // This is called whenever mAnchor's layout bound changes
@@ -264,7 +237,7 @@ public class MediaController extends FrameLayout implements IMediaController {
      */
     protected View makeControllerView() {
         LayoutInflater inflate = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mRoot = inflate.inflate(R.layout.media_controller, null);
+        mRoot = inflate.inflate(R.layout.media_controller_bilibili, null);
 
         initControllerView(mRoot);
 
@@ -598,7 +571,7 @@ public class MediaController extends FrameLayout implements IMediaController {
     // case there WON'T BE onStartTrackingTouch/onStopTrackingTouch notifications,
     // we will simply apply the updated position without suspending regular updates.
 
-    private final OnSeekBarChangeListener mSeekListener = new OnSeekBarChangeListener() {
+    private final SeekBar.OnSeekBarChangeListener mSeekListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onStartTrackingTouch(SeekBar bar) {
             show(3600000);
@@ -725,6 +698,5 @@ public class MediaController extends FrameLayout implements IMediaController {
             }
         }
     }
-
 
 }

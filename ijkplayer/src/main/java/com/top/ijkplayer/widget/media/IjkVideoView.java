@@ -43,6 +43,7 @@ import com.top.ijkplayer.R;
 import com.top.ijkplayer.application.Settings;
 import com.top.ijkplayer.services.MediaPlayerService;
 import com.top.ijkplayer.widget.controller.MediaController;
+import com.top.ijkplayer.widget.controller.MediaPlayerControl;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +64,7 @@ import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 import tv.danmaku.ijk.media.player.misc.IjkMediaFormat;
 
 
-public class IjkVideoView extends FrameLayout implements MediaController.MediaPlayerControl {
+public class IjkVideoView extends FrameLayout implements MediaPlayerControl {
     private String TAG = "IjkVideoView";
     // settable by the client
     private Uri mUri;
