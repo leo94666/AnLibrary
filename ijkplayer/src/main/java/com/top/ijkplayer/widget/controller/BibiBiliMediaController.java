@@ -53,7 +53,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
     private boolean mShowing;
     private boolean mDragging;
     private static final int sDefaultTimeout = 3000;
-    private  boolean mUseFastForward;
+    private boolean mUseFastForward;
     private boolean mFromXml;
     private boolean mListenersSet;
     private View.OnClickListener mNextListener, mPrevListener;
@@ -69,7 +69,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
     private ImageButton mPrevButton;
     private CharSequence mPlayDescription;
     private CharSequence mPauseDescription;
-    private  AccessibilityManager mAccessibilityManager;
+    private AccessibilityManager mAccessibilityManager;
 
     public BibiBiliMediaController(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -104,7 +104,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
 
 
     private void initFloatingWindow() {
-        mWindowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         //add by leo
         try {
             Class clazz = Class.forName("com.android.internal.policy.PhoneWindow");
@@ -154,7 +154,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
     // Update the dynamic parts of mDecorLayoutParams
     // Must be called with mAnchor != NULL.
     private void updateFloatingWindowLayout() {
-        int [] anchorPos = new int[2];
+        int[] anchorPos = new int[2];
         mAnchor.getLocationOnScreen(anchorPos);
 
         // we need to know the size of the controller so we can properly position it
@@ -206,6 +206,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
      * This can for example be a VideoView, or your Activity's main view.
      * When VideoView calls this method, it will use the VideoView's parent
      * as the anchor.
+     *
      * @param view The view to which to anchor the controller when it is visible.
      */
     @Override
@@ -232,15 +233,14 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
     /**
      * Create the view that holds the widgets that control playback.
      * Derived classes can override this to create their own.
+     *
      * @return The controller view.
      * @hide This doesn't work as advertised
      */
     protected View makeControllerView() {
         LayoutInflater inflate = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mRoot = inflate.inflate(R.layout.media_controller_bilibili, null);
-
         initControllerView(mRoot);
-
         return mRoot;
     }
 
@@ -349,8 +349,9 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
     /**
      * Show the controller on screen. It will go away
      * automatically after 'timeout' milliseconds of inactivity.
+     *
      * @param timeout The timeout in milliseconds. Use 0 to show
-     * the controller until hide() is called.
+     *                the controller until hide() is called.
      */
     @Override
     public void show(int timeout) {
@@ -376,6 +377,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
             postDelayed(mFadeOut, timeout);
         }
     }
+
     @Override
     public boolean isShowing() {
         return mShowing;
@@ -422,7 +424,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
 
         int seconds = totalSeconds % 60;
         int minutes = (totalSeconds / 60) % 60;
-        int hours   = totalSeconds / 3600;
+        int hours = totalSeconds / 3600;
 
         mFormatBuilder.setLength(0);
         if (hours > 0) {
@@ -442,7 +444,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
             if (duration > 0) {
                 // use long to avoid overflow
                 long pos = 1000L * position / duration;
-                mProgress.setProgress( (int) pos);
+                mProgress.setProgress((int) pos);
             }
             int percent = mPlayer.getBufferPercentage();
             mProgress.setSecondaryProgress(percent * 10);
@@ -485,7 +487,7 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
         int keyCode = event.getKeyCode();
         final boolean uniqueDown = event.getRepeatCount() == 0
                 && event.getAction() == KeyEvent.ACTION_DOWN;
-        if (keyCode ==  KeyEvent.KEYCODE_HEADSETHOOK
+        if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK
                 || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
                 || keyCode == KeyEvent.KEYCODE_SPACE) {
             if (uniqueDown) {
@@ -596,9 +598,9 @@ public class BibiBiliMediaController extends FrameLayout implements IMediaContro
 
             long duration = mPlayer.getDuration();
             long newposition = (duration * progress) / 1000L;
-            mPlayer.seekTo( (int) newposition);
+            mPlayer.seekTo((int) newposition);
             if (mCurrentTime != null)
-                mCurrentTime.setText(stringForTime( (int) newposition));
+                mCurrentTime.setText(stringForTime((int) newposition));
         }
 
         @Override

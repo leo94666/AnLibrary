@@ -8,5 +8,5 @@ package com.top.arch.utils;
  * <p>
  * Describe:
  */
-class DateUtils {
+public class DateUtils {
 }
