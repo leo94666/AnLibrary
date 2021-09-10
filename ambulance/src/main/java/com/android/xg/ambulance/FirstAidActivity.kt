@@ -199,6 +199,7 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
         encParams.videoBitrate = 2000
         val params = TRTCScreenShareParams()
         setVideoEncodeParamEx(true)
+
         mTRTCCloud!!.startScreenCapture(TRTC_VIDEO_STREAM_TYPE_BIG, encParams, params)
         mIsCapturing = true
     }
