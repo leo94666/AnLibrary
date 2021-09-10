@@ -16,6 +16,26 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
 
+        <activity
+            android:name=".tablayout.ui.SimpleHomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".tablayout.ui.CommonTabActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".tablayout.ui.SlidingTabActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".tablayout.ui.SegmentTabActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name="com.top.ijkplayer.activity.IjkVideoViewActivity"
             android:label="ijk">
             <intent-filter>

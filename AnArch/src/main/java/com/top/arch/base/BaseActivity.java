@@ -1,7 +1,10 @@
 package com.top.arch.base;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.hardware.display.DisplayManager;
@@ -13,26 +16,36 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.top.arch.R;
 import com.top.arch.app.AppManager;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity implements BaseInterface {
 
     private static final String TAG = "BaseActivity";
     protected B mDataBinding;
+    protected static final int REQ_PERMISSION_CODE = 0x1000;
+    protected int mGrantedCount = 0;
+
 
     public abstract int getLayout();
 
@@ -43,8 +56,31 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     private MediaProjection mediaProjection;
     private Image image;
 
-    public abstract void onScreenShot(Bitmap bitmap);
+    public void onScreenShot(Bitmap bitmap) {
 
+    }
+
+    protected void onPermissionGranted() {
+
+    }
+
+    protected boolean checkPermission(String ... permission) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            List<String> permissions = new ArrayList<>();
+            for (String s : permission) {
+                if (PackageManager.PERMISSION_GRANTED != ActivityCompat.checkSelfPermission(this, s)) {
+                    permissions.add(s);
+                }
+            }
+            if (permissions.size() != 0) {
+                ActivityCompat.requestPermissions(this,
+                        permissions.toArray(new String[0]),
+                        REQ_PERMISSION_CODE);
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +154,16 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
 
 
     @Override
+    public void setScreenSensor(boolean isAuto) {
+
+    }
+
+    @Override
+    public void hideKeyboard(IBinder token) {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e(TAG, "onActivityResult...requestCode=" + requestCode + ",resultCode=" + resultCode);
         if (requestCode == EVENT_SCREENSHOT) {
@@ -129,7 +175,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
             int width = displayMetrics.widthPixels;
             int height = displayMetrics.heightPixels;
             Log.e(TAG, "displayMetrics width=" + width + ", height=" + height);
-            ImageReader mImageReader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2);
+            @SuppressLint("WrongConstant") ImageReader mImageReader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2);
             mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
             VirtualDisplay virtualDisplay = mediaProjection.createVirtualDisplay("screen-mirror", width, height,
                     displayMetrics.densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, mImageReader.getSurface(), null, null);
@@ -172,6 +218,28 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
                     mediaProjection.stop();
                 }
             }, 100);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQ_PERMISSION_CODE:
+                for (int ret : grantResults) {
+                    if (PackageManager.PERMISSION_GRANTED == ret) {
+                        mGrantedCount++;
+                    }
+                }
+                if (mGrantedCount == permissions.length) {
+                    onPermissionGranted();
+                } else {
+                    Toast.makeText(this, "用户没有允许需要的权限", Toast.LENGTH_SHORT).show();
+                }
+                mGrantedCount = 0;
+                break;
+            default:
+                break;
         }
     }
 

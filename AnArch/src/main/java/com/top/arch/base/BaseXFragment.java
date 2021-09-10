@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
@@ -103,5 +104,18 @@ public abstract class BaseXFragment<B extends ViewDataBinding> extends Fragment 
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
         }
+    }
+
+    @Override
+    public void setFullScreen() {
+        WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
+        params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getActivity().getWindow().setAttributes(params);
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    @Override
+    public void exitFullScreen() {
+
     }
 }
