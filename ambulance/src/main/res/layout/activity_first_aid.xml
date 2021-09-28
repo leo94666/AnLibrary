@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <include
             android:id="@+id/include_toolbar"
             layout="@layout/include_toolbar" />
@@ -26,6 +27,34 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black_212121"
+            android:id="@+id/rl_loading">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正在进入中..."
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_24"
+                android:layout_centerInParent="true">
+            </androidx.appcompat.widget.AppCompatTextView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退出"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_24"
+                android:layout_margin="@dimen/dp_8">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+
+        </RelativeLayout>
 
 
     </RelativeLayout>

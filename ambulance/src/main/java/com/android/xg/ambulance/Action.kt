@@ -2,5 +2,7 @@ package com.android.xg.ambulance
 
 enum class Action(val action: String) {
     MARK("Mark"),
-    SWITCH_SCREEN("SwitchScreen")
+    CLEAR_MARK("ClearMark"),
+    SWITCH_SCREEN("SwitchScreen"),
+    INVITE("Invite")
 }

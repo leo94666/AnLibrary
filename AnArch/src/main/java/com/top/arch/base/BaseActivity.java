@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,8 @@ import androidx.databinding.ViewDataBinding;
 
 import com.top.arch.R;
 import com.top.arch.app.AppManager;
+import com.top.arch.util.LogUtils;
+import com.top.arch.util.ToastUtils;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -64,7 +67,8 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
 
     }
 
-    protected boolean checkPermission(String ... permission) {
+
+    protected boolean checkPermission(String... permission) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             List<String> permissions = new ArrayList<>();
             for (String s : permission) {
@@ -84,6 +88,11 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        int layout = getLayout();
+        if (layout == -1) {
+            return;
+        }
+
         super.onCreate(savedInstanceState);
         AppManager.getInstance().addActivity(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -92,7 +101,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        mDataBinding = DataBindingUtil.setContentView(this, getLayout());
+        mDataBinding = DataBindingUtil.setContentView(this, layout);
         init(mDataBinding.getRoot());
     }
 
@@ -160,7 +169,10 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
 
     @Override
     public void hideKeyboard(IBinder token) {
-
+        if (token != null) {
+            InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override

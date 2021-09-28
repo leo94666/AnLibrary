@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -54,7 +55,7 @@
                 android:layout_weight="3"
                 android:background="@color/whiteSmoke">
 
-                <androidx.core.widget.NestedScrollView
+                <com.top.androidx.superview.LockableNestedScrollView
                     android:id="@+id/nested_scroll_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -64,270 +65,53 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
                         <!--系统设置-->
-                        <LinearLayout
-                            android:id="@+id/rl_system"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_margin="@dimen/dp_10">
 
-                            <LinearLayout
-                                android:id="@+id/rl_system_single_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_marginRight="@dimen/dp_10"
-                                android:layout_weight="1">
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="信号一"
-                                    android:padding="@dimen/dp_10"/>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_ip"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入IP"
-                                        />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_port"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入Port" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_admin"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入账号" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_password"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="textPassword"
-                                        android:hint="请输入密码" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_channel"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入通道" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:id="@+id/rl_system_single_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_marginLeft="@dimen/dp_10"
-                                android:layout_weight="1">
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="信号二"
-                                    android:padding="@dimen/dp_10"/>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_ip_2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入IP" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_port_2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入Port" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_admin_2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入账号" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_password_2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="textPassword"
-                                        android:hint="请输入密码" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    app:layout_constraintTop_toBottomOf="@+id/label"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/et_channel_2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:hint="请输入通道" />
-
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                            </LinearLayout>
-                        </LinearLayout>
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_setting"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/dp_5"
-                            android:gravity="center"
-                            android:layout_margin="@dimen/dp_10"
-                            android:background="@color/color_toolbar"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14"
-                            android:text="设置"/>
-
+                        <include
+                            android:id="@+id/include_single"
+                            layout="@layout/layout_single" />
 
                         <!--个人中心-->
-                        <RelativeLayout
-                            android:id="@+id/rl_user"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_200"
-                            android:background="@color/color_red">
 
-                        </RelativeLayout>
+                        <include
+                            android:id="@+id/include_user"
+                            layout="@layout/layout_user"/>
+
                         <!--记录查询-->
-                        <RelativeLayout
-                            android:id="@+id/rl_record"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_200"
-                            android:background="@color/color_black"></RelativeLayout>
+                        <include
+                            android:id="@+id/include_record"
+                            layout="@layout/layout_record"/>
 
                         <!--关于我们-->
-                        <RelativeLayout
-                            android:id="@+id/rl_about"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_200"
-                            android:background="@color/color_azure">
+                        <include
+                            android:id="@+id/include_about"
+                            layout="@layout/layout_about"/>
 
+                        <!--注销-->
+                        <RelativeLayout
+                            android:id="@+id/logout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp_50">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tv_logout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_8"
+                                android:layout_marginTop="@dimen/dp_8"
+                                android:layout_marginEnd="@dimen/dp_8"
+                                android:layout_marginBottom="@dimen/dp_8"
+                                android:background="@color/color_toolbar"
+                                android:gravity="center"
+                                android:padding="@dimen/dp_5"
+                                android:text="注销"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/sp_14" />
                         </RelativeLayout>
 
                     </LinearLayout>
-
-
-                </androidx.core.widget.NestedScrollView>
-
+                </com.top.androidx.superview.LockableNestedScrollView>
             </FrameLayout>
-
-
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

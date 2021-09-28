@@ -129,4 +129,9 @@ public class DrawView extends View {
         addPath(msg);
         postInvalidate();
     }
+
+    public void clearMark() {
+        mPaths.clear();
+        postInvalidate();
+    }
 }

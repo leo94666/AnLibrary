@@ -6,15 +6,15 @@ include ':SuperInput'
 include ':Androidx'
 include ':AnArch'
 include ':sample'
-//include ':openCVLibrary452'
-//project(':openCVLibrary452').projectDir = new File('sdk')
-
+include ':openCVLibrary452'
+project(':openCVLibrary452').projectDir = new File('sdk')
+//project(':openCVLibrary452').moduleDir =new File('sdk')
 include ':PlateOCR'
 include ':ffmpegLibrary422'
 
 //include ':cSource'
 //project(':cSource').projectDir = new File('cSource')
-//include ':HCNetSDK'
+include ':HCNetSDK'
 include ':screenshot'
 include ':ijkplayer'
 include ':ambulance'

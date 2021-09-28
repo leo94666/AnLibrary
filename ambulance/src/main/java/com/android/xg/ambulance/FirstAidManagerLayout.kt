@@ -12,6 +12,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.TextureView
+import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -74,26 +75,36 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
     private var mExtendWidth = -1
     private var mExtendHeight = -1
 
+    private var lastExtendPosition = -1
+
+
     private var mHkParentConstraintLayout: ConstraintLayout? = null
     private var mConstraintSet: ConstraintSet? = null
 
+    //适用于四分频
     private var isExtend = false
 
+    //适用于2分屏
+    private var mDefaultISDevice = true
+
+    private var mDefaultMode = MODE.TWO
+
+
+    private lateinit var onSelectPositionListener: ((Int) -> Unit)
+
+    fun setOnSelectPositionListener(listen: ((Int) -> Unit)) {
+        this.onSelectPositionListener = listen
+    }
 
     constructor(context: Context) : super(context) {
         initView()
-        initScreenInfo()
-        initMode()
         initListener()
     }
 
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         initView()
-        initScreenInfo()
-        initMode()
         initListener()
-
     }
 
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(
@@ -102,8 +113,6 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         defStyleAttr
     ) {
         initView()
-        initScreenInfo()
-        initMode()
         initListener()
     }
 
@@ -138,6 +147,8 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
     private fun initView() {
         val root =
             LayoutInflater.from(context).inflate(R.layout.layout_first_aid_manager, this, true)
+        initScreenInfo()
+
         mTextureView = root.findViewById(R.id.texture_view)
         mMapView = root.findViewById(R.id.map_view)
         mHkParentConstraintLayout = rootView.findViewById(R.id.hkview_constraint_parent)
@@ -146,20 +157,19 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         mGuidelineHorizontal = root.findViewById(R.id.guideline_horizontal)
         mGuidelineVertical = root.findViewById(R.id.guideline_vertical)
         //mDrawView = root.findViewById(R.id.draw_view)
-
         mConstraintSet = ConstraintSet()
+        isChildrenDrawingOrderEnabled = true
 
-        initCamera()
+        initMode(mDefaultMode)
 
-        initHikVision()
     }
 
     private fun initHikVision() {
-        ConfigManager.getInstance().isDeveloperMode = true
+        //ConfigManager.getInstance().isDeveloperMode = true
         postDelayed({
             openDevice0()
             openDevice1()
-        }, 300)
+        }, 500)
     }
 
     private fun openDevice0() {
@@ -183,6 +193,7 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
     }
 
     private fun openDevice1() {
+        if (mDefaultMode == MODE.TWO) return
         val device1String = SPUtils.getInstance().getString("Device1")
 
         if (device1String.isNotBlank()) {
@@ -215,7 +226,16 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
             }
 
             override fun onDoubleClickListener() {
-                extend(0)
+                if (mDefaultMode == MODE.TWO) {
+                    if (mDefaultISDevice) {
+
+                    } else {
+                        initTwoMode(!mDefaultISDevice)
+                    }
+                } else {
+                    sendScreenSwitchMessage(0)
+                    extend(0)
+                }
             }
 
             override fun onLoginLoading(
@@ -338,6 +358,7 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
             }
 
             override fun onDoubleClickListener() {
+                sendScreenSwitchMessage(1)
                 extend(1)
             }
 
@@ -451,14 +472,25 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         })
 
 
+        mTextureView?.setOnMultiClickListener {
+            if (mDefaultMode == MODE.TWO) {
+                if (mDefaultISDevice) {
+                    initTwoMode(!mDefaultISDevice)
+                } else {
 
-        mTextureView?.setOnMultiClickListener { extend(3) }
+                }
+            } else {
+                sendScreenSwitchMessage(3)
+                extend(3)
+
+            }
+        }
         mMapView?.setOnClickListener {
 
         }
     }
 
-    private fun initMode() {
+    private fun initFourMode() {
         val id0 = mHikVisionVideoView1?.id!!
         val id1 = mHikVisionVideoView2?.id!!
         val id2 = mMapView?.id!!
@@ -504,6 +536,123 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         isExtend = false
     }
 
+    private fun initTwoMode(defaultISDevice: Boolean) {
+
+        val id0 = mHikVisionVideoView1?.id!!
+        //val id1 = mHikVisionVideoView2?.id!!
+        //val id2 = mMapView?.id!!
+        val id3 = mTextureView?.id!!
+
+
+        //获取当前目标控件的约束集合
+        mConstraintSet?.clone(mHkParentConstraintLayout)
+
+        mConstraintSet?.clear(id0)
+        //mConstraintSet?.clear(id1)
+        //mConstraintSet?.clear(id2)
+        mConstraintSet?.clear(id3)
+
+        if (defaultISDevice) {
+            mTextureView?.bringToFront()
+
+            //左上角
+            mConstraintSet?.constrainWidth(id0, mExtendWidth)
+            mConstraintSet?.constrainHeight(id0, mExtendWidth)
+            mConstraintSet?.connect(
+                id0,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.TOP
+            )
+            mConstraintSet?.connect(
+                id0,
+                ConstraintSet.BOTTOM,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM
+            )
+            mConstraintSet?.connect(
+                id0,
+                ConstraintSet.RIGHT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.RIGHT
+            )
+            mConstraintSet?.connect(
+                id0,
+                ConstraintSet.LEFT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.LEFT
+            )
+            //右下角
+            mConstraintSet?.constrainWidth(id3, mExtendWidth / 3)
+            mConstraintSet?.constrainHeight(id3, mExtendWidth / 3)
+            mConstraintSet?.connect(id3, ConstraintSet.RIGHT, id0, ConstraintSet.RIGHT)
+            mConstraintSet?.connect(id3, ConstraintSet.BOTTOM, id0, ConstraintSet.BOTTOM)
+        } else {
+            mHikVisionVideoView1?.bringToFront()
+            //左上角
+            mConstraintSet?.constrainWidth(id3, mExtendWidth)
+            mConstraintSet?.constrainHeight(id3, mExtendWidth)
+            mConstraintSet?.connect(
+                id3,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.TOP
+            )
+            mConstraintSet?.connect(
+                id3,
+                ConstraintSet.BOTTOM,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM
+            )
+            mConstraintSet?.connect(
+                id3,
+                ConstraintSet.RIGHT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.RIGHT
+            )
+            mConstraintSet?.connect(
+                id3,
+                ConstraintSet.LEFT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.LEFT
+            )
+
+            //右下角
+            mConstraintSet?.constrainWidth(id0, mExtendWidth / 3)
+            mConstraintSet?.constrainHeight(id0, mExtendWidth / 3)
+            mConstraintSet?.connect(id0, ConstraintSet.RIGHT, id3, ConstraintSet.RIGHT)
+            mConstraintSet?.connect(
+                id0,
+                ConstraintSet.BOTTOM,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM
+            )
+        }
+
+        //右上角
+        //mConstraintSet?.constrainWidth(id1, 0)
+        //mConstraintSet?.constrainHeight(id1, 0)
+
+        //左下角
+        //mConstraintSet?.constrainWidth(id2, 0)
+        // mConstraintSet?.constrainHeight(id2, 0)
+
+        mConstraintSet!!.applyTo(mHkParentConstraintLayout)
+        mDefaultISDevice = defaultISDevice
+    }
+
+    private fun sendScreenSwitchMessage(position: Int) {
+        if (mDefaultMode == MODE.FOR) {
+            if (isExtend) {
+                onSelectPositionListener.invoke(4)
+            } else {
+                onSelectPositionListener.invoke(position)
+            }
+        } else {
+            onSelectPositionListener.invoke(5)
+        }
+    }
+
     private fun extend(position: Int) {
         if (isExtend) {
             doubleClickToRestore()
@@ -513,91 +662,101 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
     }
 
     private fun doubleClickToExtend(position: Int) {
-        val id0 = mHikVisionVideoView1?.id!!
-        val id1 = mHikVisionVideoView2?.id!!
-        val id2 = mMapView?.id!!
-        val id3 = mTextureView?.id!!
-
-        mConstraintSet!!.clear(id0)
-        mConstraintSet!!.clear(id1)
-        mConstraintSet!!.clear(id2)
-        mConstraintSet!!.clear(id3)
-
-        //获取当前目标控件的约束集合
-        mConstraintSet?.clone(mHkParentConstraintLayout)
-
-        when (position) {
-            0 -> {
-                //左上角
-                mConstraintSet?.constrainWidth(id0, mExtendWidth)
-                mConstraintSet?.constrainHeight(id0, mExtendHeight)
-                mConstraintSet?.centerHorizontally(id0, ConstraintSet.PARENT_ID)
-                mConstraintSet?.centerVertically(id0, ConstraintSet.PARENT_ID)
-
-
-                mConstraintSet?.constrainWidth(id1, 0)
-                mConstraintSet?.constrainHeight(id1, 0)
-                mConstraintSet?.constrainWidth(id2, 0)
-                mConstraintSet?.constrainHeight(id2, 0)
-                mConstraintSet?.constrainWidth(id3, 0)
-                mConstraintSet?.constrainHeight(id3, 0)
+        when (mDefaultMode) {
+            MODE.TWO -> {
+                initTwoMode(false)
             }
-            1 -> {
-                mConstraintSet?.constrainWidth(id1, mExtendWidth)
-                mConstraintSet?.constrainHeight(id1, mExtendHeight)
-                mConstraintSet?.centerHorizontally(id1, ConstraintSet.PARENT_ID)
-                mConstraintSet?.centerVertically(id1, ConstraintSet.PARENT_ID)
+            MODE.FOR -> {
+                val id0 = mHikVisionVideoView1?.id!!
+                val id1 = mHikVisionVideoView2?.id!!
+                val id2 = mMapView?.id!!
+                val id3 = mTextureView?.id!!
 
-                mConstraintSet?.constrainWidth(id0, 0)
-                mConstraintSet?.constrainHeight(id0, 0)
-                mConstraintSet?.constrainWidth(id2, 0)
-                mConstraintSet?.constrainHeight(id2, 0)
-                mConstraintSet?.constrainWidth(id3, 0)
-                mConstraintSet?.constrainHeight(id3, 0)
-            }
-            2 -> {
-                mConstraintSet?.constrainWidth(id2, mExtendWidth)
-                mConstraintSet?.constrainHeight(id2, mExtendHeight)
-                mConstraintSet?.centerHorizontally(id2, ConstraintSet.PARENT_ID)
-                mConstraintSet?.centerVertically(id2, ConstraintSet.PARENT_ID)
+                mConstraintSet!!.clear(id0)
+                mConstraintSet!!.clear(id1)
+                mConstraintSet!!.clear(id2)
+                mConstraintSet!!.clear(id3)
 
-                mConstraintSet?.constrainWidth(id0, 0)
-                mConstraintSet?.constrainHeight(id0, 0)
-                mConstraintSet?.constrainWidth(id1, 0)
-                mConstraintSet?.constrainHeight(id1, 0)
-                mConstraintSet?.constrainWidth(id3, 0)
-                mConstraintSet?.constrainHeight(id3, 0)
-            }
-            3 -> {
-                mConstraintSet?.constrainWidth(id3, mExtendWidth)
-                mConstraintSet?.constrainHeight(id3, mExtendHeight)
-                mConstraintSet?.centerHorizontally(id3, ConstraintSet.PARENT_ID)
-                mConstraintSet?.centerVertically(id3, ConstraintSet.PARENT_ID)
+                //获取当前目标控件的约束集合
+                mConstraintSet?.clone(mHkParentConstraintLayout)
 
-                mConstraintSet?.constrainWidth(id1, 0)
-                mConstraintSet?.constrainHeight(id1, 0)
-                mConstraintSet?.constrainWidth(id2, 0)
-                mConstraintSet?.constrainHeight(id2, 0)
-                mConstraintSet?.constrainWidth(id0, 0)
-                mConstraintSet?.constrainHeight(id0, 0)
+                when (position) {
+                    0 -> {
+                        //左上角
+                        mConstraintSet?.constrainWidth(id0, mExtendWidth)
+                        mConstraintSet?.constrainHeight(id0, mExtendHeight)
+                        mConstraintSet?.centerHorizontally(id0, ConstraintSet.PARENT_ID)
+                        mConstraintSet?.centerVertically(id0, ConstraintSet.PARENT_ID)
+
+
+                        mConstraintSet?.constrainWidth(id1, 0)
+                        mConstraintSet?.constrainHeight(id1, 0)
+                        mConstraintSet?.constrainWidth(id2, 0)
+                        mConstraintSet?.constrainHeight(id2, 0)
+                        mConstraintSet?.constrainWidth(id3, 0)
+                        mConstraintSet?.constrainHeight(id3, 0)
+                    }
+                    1 -> {
+                        mConstraintSet?.constrainWidth(id1, mExtendWidth)
+                        mConstraintSet?.constrainHeight(id1, mExtendHeight)
+                        mConstraintSet?.centerHorizontally(id1, ConstraintSet.PARENT_ID)
+                        mConstraintSet?.centerVertically(id1, ConstraintSet.PARENT_ID)
+
+                        mConstraintSet?.constrainWidth(id0, 0)
+                        mConstraintSet?.constrainHeight(id0, 0)
+                        mConstraintSet?.constrainWidth(id2, 0)
+                        mConstraintSet?.constrainHeight(id2, 0)
+                        mConstraintSet?.constrainWidth(id3, 0)
+                        mConstraintSet?.constrainHeight(id3, 0)
+                    }
+                    2 -> {
+                        mConstraintSet?.constrainWidth(id2, mExtendWidth)
+                        mConstraintSet?.constrainHeight(id2, mExtendHeight)
+                        mConstraintSet?.centerHorizontally(id2, ConstraintSet.PARENT_ID)
+                        mConstraintSet?.centerVertically(id2, ConstraintSet.PARENT_ID)
+
+                        mConstraintSet?.constrainWidth(id0, 0)
+                        mConstraintSet?.constrainHeight(id0, 0)
+                        mConstraintSet?.constrainWidth(id1, 0)
+                        mConstraintSet?.constrainHeight(id1, 0)
+                        mConstraintSet?.constrainWidth(id3, 0)
+                        mConstraintSet?.constrainHeight(id3, 0)
+                    }
+                    3 -> {
+                        mConstraintSet?.constrainWidth(id3, mExtendWidth)
+                        mConstraintSet?.constrainHeight(id3, mExtendHeight)
+                        mConstraintSet?.centerHorizontally(id3, ConstraintSet.PARENT_ID)
+                        mConstraintSet?.centerVertically(id3, ConstraintSet.PARENT_ID)
+
+                        mConstraintSet?.constrainWidth(id1, 0)
+                        mConstraintSet?.constrainHeight(id1, 0)
+                        mConstraintSet?.constrainWidth(id2, 0)
+                        mConstraintSet?.constrainHeight(id2, 0)
+                        mConstraintSet?.constrainWidth(id0, 0)
+                        mConstraintSet?.constrainHeight(id0, 0)
+                    }
+                }
+                isExtend = true
+                mConstraintSet!!.applyTo(mHkParentConstraintLayout)
             }
         }
-
-        isExtend = true
-        mConstraintSet!!.applyTo(mHkParentConstraintLayout)
     }
 
     private fun doubleClickToRestore() {
-        initMode()
+        when (mDefaultMode) {
+            MODE.FOR -> {
+                initFourMode()
+            }
+            MODE.TWO -> {
+                initTwoMode(true)
+            }
+        }
     }
 
-
     private fun initMap() {
-
         aMap?.setLocationSource(this)
         aMap?.uiSettings?.isMyLocationButtonEnabled = true
         aMap?.isMyLocationEnabled = true // 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
-
 
         val myLocationStyle = MyLocationStyle()
 
@@ -605,19 +764,17 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         myLocationStyle.interval(2000)
         myLocationStyle.showMyLocation(true)
         aMap?.setMyLocationStyle(myLocationStyle) //设置定位蓝点的Style
-
     }
 
     private fun initCamera() {
         mCameraProxy = CameraProxy(context as Activity?)
         // mCameraProxy!!.switchCamera()
         mTextureView?.surfaceTextureListener = this
-
     }
-
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun onCreate() {
+        Log.e("OnLifecycleEvent", "=========Lifecycle.Event.ON_CREATE")
         mMapView?.onCreate(null)
         //初始化地图控制器对象
         if (aMap == null) {
@@ -626,23 +783,42 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         initMap()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    private fun onPause() {
-        mMapView?.onPause()
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    private fun onStart() {
+        Log.e("OnLifecycleEvent", "=========Lifecycle.Event.ON_START")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    private fun onStop() {
+        Log.e("OnLifecycleEvent", "=========Lifecycle.Event.ON_STOP")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun onResume() {
+        Log.e("OnLifecycleEvent", "=========Lifecycle.Event.ON_RESUME")
         mMapView?.onResume()
+        initHikVision()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    private fun onPause() {
+        Log.e("OnLifecycleEvent", "=========Lifecycle.Event.ON_PAUSE")
+        mMapView?.onPause()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private fun onDestroy() {
+        Log.e("OnLifecycleEvent", "=========Lifecycle.Event.ON_DESTROY")
         //Toast.makeText(context,"destory",Toast.LENGTH_SHORT).show()
         mMapView?.onDestroy();
         mHikVisionVideoView1?.stopPreview()
         mHikVisionVideoView2?.stopPreview()
         mCameraProxy?.releaseCamera()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+    private fun onAny() {
+        Log.e("OnLifecycleEvent", "=========Lifecycle.Event.ON_ANY")
     }
 
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture?, width: Int, height: Int) {
@@ -671,7 +847,7 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
             //设置定位监听
             mLocationClient?.setLocationListener(this)
             //设置为高精度定位模式
-            mLocationOption?.setLocationMode(AMapLocationMode.Hight_Accuracy)
+            mLocationOption?.locationMode = AMapLocationMode.Hight_Accuracy
             //设置定位参数
             mLocationClient?.setLocationOption(mLocationOption)
             // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
@@ -705,16 +881,47 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         }
     }
 
-
     private fun showLogToast(msg: String) {
         //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
         Log.i("FirstAidManagerLayout", msg)
     }
 
+    fun initMode(mode: MODE) {
+        mDefaultMode = mode
+        if (mDefaultMode == MODE.TWO) {
+            mHikVisionVideoView2?.visibility = View.GONE
+            mMapView?.visibility = View.GONE
+            initTwoMode(true)
+        } else {
+            mHikVisionVideoView2?.visibility = View.VISIBLE
+            mMapView?.visibility = View.VISIBLE
+            initFourMode()
+        }
+        initCamera()
+    }
 
-    var lastExtendPosition = -1
+    fun changeMode(num: Int) {
+        if (num == 2) {
+            initMode(MODE.TWO)
+        } else if (num == 4) {
+            initMode(MODE.FOR)
+        }
+    }
+
+    fun changeMode(mode: MODE) {
+        initMode(mode)
+    }
 
     fun switchScreen(i: Int) {
+        //Toast.makeText(context, "======: $i", Toast.LENGTH_SHORT).show()
+        if (i == 4) {
+            doubleClickToRestore()
+        }
+        if (i == 5) {
+            if (mDefaultMode == MODE.TWO) {
+                initTwoMode(!mDefaultISDevice)
+            }
+        }
         if (i > 3) {
             return
         }
@@ -727,7 +934,7 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
                 doubleClickToRestore()
             } else {
                 extend(i)
-                lastExtendPosition=i;
+                lastExtendPosition = i;
             }
         } else {
             //该次点击和上一次不同
@@ -735,9 +942,10 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
                 doubleClickToRestore()
             }
             extend(i)
-            lastExtendPosition=i;
+            lastExtendPosition = i
         }
 
     }
+
 
 }

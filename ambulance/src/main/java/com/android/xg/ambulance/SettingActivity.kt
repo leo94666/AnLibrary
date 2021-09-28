@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.viewpager.widget.PagerAdapter
 import com.android.xg.ambulance.databinding.ActivitySettingBinding
+import com.android.xg.ambulance.login.LoginActivity
+import com.android.xg.ambulance.personal.AmbulanceProfileManager
 import com.google.gson.Gson
 import com.top.androidx.badge.Badge
 import com.top.androidx.vtabs.VerticalTabLayout
@@ -17,6 +19,7 @@ import com.top.androidx.vtabs.adapter.SimpleTabAdapter
 import com.top.androidx.vtabs.adapter.TabAdapter
 import com.top.androidx.vtabs.widget.ITabView
 import com.top.androidx.vtabs.widget.TabView
+import com.top.arch.app.AppManager
 import com.top.arch.base.BaseActivity
 import com.top.arch.util.SPUtils
 import com.top.arch.util.ToastUtils
@@ -27,6 +30,7 @@ import kotlin.collections.ArrayList
 class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     var mTitles = mutableListOf("系统设置", "个人中心", "记录查询", "关于我们", "返回")
+    var screenNum: Int? = null
 
     var mDefaultDevices = mutableListOf(
         Device("183j125r73.iask.in", 20001, "admin", "bjxg12345", 1),
@@ -36,10 +40,14 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     override fun getLayout(): Int {
         setFullScreen()
+        hideBottomUIMenu()
         return R.layout.activity_setting
     }
 
     override fun init(root: View?) {
+        mDataBinding.includeToolbar.ivSetting.visibility=View.GONE
+        mDataBinding.includeToolbar.tvExit.visibility=View.VISIBLE
+        mDataBinding.nestedScrollView.setScrollingEnabled(false)
         mDataBinding.tabLayout.setTabAdapter(object : SimpleTabAdapter() {
             override fun getCount(): Int {
                 return mTitles.size
@@ -62,14 +70,15 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
                         mDataBinding.nestedScrollView.smoothScrollTo(0, 0)
                     }
                     1 -> {
-                        mDataBinding.nestedScrollView.smoothScrollTo(0, mDataBinding.rlUser.top)
+
+                        mDataBinding.nestedScrollView.smoothScrollTo(0, mDataBinding.includeUser.rlUser.top)
                     }
                     2 -> {
-                        mDataBinding.nestedScrollView.smoothScrollTo(0, mDataBinding.rlRecord.top)
+                        mDataBinding.nestedScrollView.smoothScrollTo(0, mDataBinding.includeRecord.rlRecord.top)
                     }
 
                     3 -> {
-                        mDataBinding.nestedScrollView.smoothScrollTo(0, mDataBinding.rlAbout.top)
+                        mDataBinding.nestedScrollView.smoothScrollTo(0, mDataBinding.includeAbout.rlAbout.top)
                     }
                 }
             }
@@ -79,17 +88,35 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
             }
         })
 
+        screenNum = AmbulanceProfileManager.getInstance().screenNum
+        //Toast.makeText(this,""+screenNum,Toast.LENGTH_SHORT).show()
+
+        mDataBinding.includeUser.etCarNumber.setText(AmbulanceProfileManager.getInstance().carNumber)
+        mDataBinding.includeUser.etPhone.setText(AmbulanceProfileManager.getInstance().userId)
+        mDataBinding.includeUser.etName.visibility = View.GONE
+
         initDevice()
         initListener()
     }
 
     private fun initListener() {
 
-        mDataBinding.tvSetting.setOnClickListener {
+        mDataBinding.includeToolbar.tvExit.setOnClickListener {
+            finish()
+        }
+        mDataBinding.includeSingle.tvSetting.setOnClickListener {
             val devices = getDevice()
             SPUtils.getInstance().put("Device0", Gson().toJson(devices[0]))
-            SPUtils.getInstance().put("Device1", Gson().toJson(devices[1]))
-            Toast.makeText(this,"设置成功",Toast.LENGTH_SHORT).show()
+            if (screenNum == 4) {
+                SPUtils.getInstance().put("Device1", Gson().toJson(devices[1]))
+            }
+            Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show()
+        }
+
+        mDataBinding.tvLogout.setOnClickListener {
+            AmbulanceProfileManager.getInstance().logout()
+            AppManager.getInstance().finishAllActivity()
+            LoginActivity.startLoginActivity(this)
         }
     }
 
@@ -104,50 +131,54 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
             }
         }
 
-        val devices1 = SPUtils.getInstance().getString("Device1")
-        if (devices1.isBlank()) {
-            setDevice1(mDefaultDevices[1])
-        } else {
-            val device = Gson().fromJson(devices1, Device::class.java)
-            if (device != null) {
-                setDevice1(device)
+        if (screenNum == 4) {
+            mDataBinding.includeSingle.rlSystemSingle2.visibility = View.VISIBLE
+            val devices1 = SPUtils.getInstance().getString("Device1")
+            if (devices1.isBlank()) {
+                setDevice1(mDefaultDevices[1])
+            } else {
+                val device = Gson().fromJson(devices1, Device::class.java)
+                if (device != null) {
+                    setDevice1(device)
+                }
             }
         }
+
     }
 
     private fun getDevice(): MutableList<Device> {
         return mutableListOf(
             Device(
-                mDataBinding.etIp.text.toString(),
-                mDataBinding.etPort.text.toString().toInt(),
-                mDataBinding.etAdmin.text.toString(),
-                mDataBinding.etPassword.text.toString(),
-                mDataBinding.etChannel.text.toString().toInt()
+                mDataBinding.includeSingle.etIp.text.toString(),
+                mDataBinding.includeSingle.etPort.text.toString().toInt(),
+                mDataBinding.includeSingle.etAdmin.text.toString(),
+                mDataBinding.includeSingle.etPassword.text.toString(),
+                mDataBinding.includeSingle.etChannel.text.toString().toInt()
             ),
             Device(
-                mDataBinding.etIp2.text.toString(),
-                mDataBinding.etPort2.text.toString().toInt(),
-                mDataBinding.etAdmin2.text.toString(),
-                mDataBinding.etPassword2.text.toString(),
-                mDataBinding.etChannel2.text.toString().toInt()
+                mDataBinding.includeSingle.etIp2.text.toString(),
+                mDataBinding.includeSingle.etPort2.text.toString().toInt(),
+                mDataBinding.includeSingle.etAdmin2.text.toString(),
+                mDataBinding.includeSingle.etPassword2.text.toString(),
+                mDataBinding.includeSingle.etChannel2.text.toString().toInt()
             )
         )
     }
 
     private fun setDevice0(device: Device) {
-        mDataBinding.etIp.setText(device.ip)
-        mDataBinding.etPort.setText("" + device.port)
-        mDataBinding.etAdmin.setText(device.account)
-        mDataBinding.etPassword.setText(device.password)
-        mDataBinding.etChannel.setText(""+device.chanel)
+        mDataBinding.includeSingle.etIp.setText(device.ip)
+        mDataBinding.includeSingle.etPort.setText("" + device.port)
+        mDataBinding.includeSingle.etAdmin.setText(device.account)
+        mDataBinding.includeSingle.etPassword.setText(device.password)
+        mDataBinding.includeSingle.etChannel.setText("" + device.chanel)
     }
 
     private fun setDevice1(device: Device) {
-        mDataBinding.etIp2.setText(device.ip)
-        mDataBinding.etPort2.setText("" + device.port)
-        mDataBinding.etAdmin2.setText(device.account)
-        mDataBinding.etPassword2.setText(device.password)
-        mDataBinding.etChannel2.setText("" + device.chanel)
+        mDataBinding.includeSingle.etIp2.setText(device.ip)
+        mDataBinding.includeSingle.etPort2.setText("" + device.port)
+        mDataBinding.includeSingle.etAdmin2.setText(device.account)
+        mDataBinding.includeSingle.etPassword2.setText(device.password)
+        mDataBinding.includeSingle.etChannel2.setText("" + device.chanel)
     }
 
     companion object {
