@@ -2,6 +2,8 @@ package com.top;
 
 import android.graphics.Bitmap;
 
+import org.opencv.videoio.VideoCapture;
+
 public class OpenCVKits {
     static {
         System.loadLibrary("openCVUtils");
