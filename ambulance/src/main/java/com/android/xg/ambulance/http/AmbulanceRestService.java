@@ -7,11 +7,13 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface AmbulanceRestService {
     /**
@@ -54,4 +56,21 @@ public interface AmbulanceRestService {
 
     @GET("/api/server/ambulance/initiator/bind/doctor")
     Observable<DoctorResultBean> doctor(@HeaderMap Map<String, String> header);
+
+
+
+
+    //会议管理
+    @POST("/api/server/ambulance/meeting")
+    Observable<DoctorResultBean> createMeeting(@Body Map<String, String> header);
+
+    @PUT("/api/server/ambulance/meeting")
+    Observable<DoctorResultBean> modifyMeeting(@Body Map<String, String> header);
+
+    @DELETE("/api/server/ambulance/meeting/{meetingId}")
+    Observable<DoctorResultBean> deleteMeeting(@Body Map<String, String> header);
+
+    @DELETE("/api/server/ambulance/meeting/{meetingId}")
+    Observable<DoctorResultBean> queryMeeting(@Body Map<String, String> header);
+
 }

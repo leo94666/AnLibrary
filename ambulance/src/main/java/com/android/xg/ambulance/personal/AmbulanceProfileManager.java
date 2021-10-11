@@ -104,6 +104,7 @@ public class AmbulanceProfileManager {
     }
 
     public SecretBean getSecretBean() {
+        double[] dd=new double[8];
         String secret = SPUtils.getInstance(PER_DATA).getString(PER_USER_LOGIN_INFO);
         return gson.fromJson(secret, SecretBean.class);
     }

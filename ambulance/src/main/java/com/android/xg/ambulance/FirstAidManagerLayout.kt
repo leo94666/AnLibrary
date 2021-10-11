@@ -33,6 +33,7 @@ import com.amap.api.maps2d.AMap
 import com.amap.api.maps2d.CameraUpdateFactory
 import com.amap.api.maps2d.LocationSource
 import com.amap.api.maps2d.LocationSource.OnLocationChangedListener
+import com.android.xg.ambulance.personal.AmbulanceProfileManager
 import com.android.xg.bean.Device
 import com.android.xg.hcnetsdk.BuildConfig
 import com.android.xg.hcnetsdk.HikVisionDeviceHelper
@@ -45,6 +46,7 @@ import com.google.gson.Gson
 import com.top.androidx.superview.SuperTextureView
 import com.top.arch.util.ClickUtils
 import com.top.arch.util.SPUtils
+import com.top.arch.util.ScreenUtils
 
 
 class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListener,
@@ -119,9 +121,9 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
 
     //1080
     private fun initScreenInfo() {
-        val displayMetrics: DisplayMetrics = context.resources.displayMetrics
-        val widthPixels = displayMetrics.widthPixels //手机宽度像素
-        val heightPixels = displayMetrics.heightPixels
+        val widthPixels = ScreenUtils.getScreenWidth() //手机宽度像素
+        val heightPixels =ScreenUtils.getScreenHeight()
+
         showLogToast("widthPixels：$widthPixels  heightPixels：$heightPixels")
         mScreenHeight = heightPixels
         mScreenWidth = widthPixels
@@ -131,7 +133,8 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
             widthPixels
         }
 
-        mMinScreen -= DimensUtils.dip2px(25f)
+
+        mMinScreen -= (DimensUtils.dip2px(35f)+ScreenUtils.getStatusBarHeight())
         mExtendHeight = mMinScreen
 
         //mMinScreen -= 6 * mItemSpace
@@ -160,6 +163,11 @@ class FirstAidManagerLayout : ConstraintLayout, TextureView.SurfaceTextureListen
         mConstraintSet = ConstraintSet()
         isChildrenDrawingOrderEnabled = true
 
+        if(AmbulanceProfileManager.getInstance().screenNum==4){
+            mDefaultMode=MODE.FOR
+        }else{
+            mDefaultMode=MODE.TWO
+        }
         initMode(mDefaultMode)
 
     }

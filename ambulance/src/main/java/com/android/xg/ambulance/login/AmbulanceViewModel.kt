@@ -156,6 +156,7 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
 
 
     fun docker() {
+
         val mDataMap: MutableMap<String, String> = HashMap()
         mDataMap["Authorization"] =
             "Bearer " + AmbulanceProfileManager.getInstance().secretBean.accessToken

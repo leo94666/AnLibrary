@@ -98,6 +98,20 @@ public final class ScreenUtils {
     }
 
     /**
+     * 获取状态栏高度
+     * @return
+     */
+    public static int getStatusBarHeight() {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = AnUtils.getApp().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = AnUtils.getApp().getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    /**
      * Return the density of screen.
      *
      * @return the density of screen

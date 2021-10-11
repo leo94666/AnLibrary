@@ -56,7 +56,7 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
                     mDataBinding.rlLoading.visibility = View.GONE
                     mDataBinding.drawView.visibility = View.VISIBLE
                     mDataBinding.firstAidManager.visibility = View.VISIBLE
-                    mDataBinding.firstAidManager.changeMode(AmbulanceProfileManager.getInstance().screenNum)
+                    //mDataBinding.firstAidManager.changeMode(AmbulanceProfileManager.getInstance().screenNum)
 
                     if (checkPermission(
                             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -304,7 +304,8 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
 
     private fun screenCapture() {
         val encParams = TRTCVideoEncParam()
-        encParams.videoResolution = TRTC_VIDEO_RESOLUTION_1920_1080
+        //0.5625
+        encParams.videoResolution = TRTC_VIDEO_RESOLUTION_1280_720
         encParams.videoResolutionMode = TRTC_VIDEO_RESOLUTION_MODE_LANDSCAPE
         encParams.videoFps = 15
         encParams.enableAdjustRes = false
