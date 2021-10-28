@@ -279,4 +279,8 @@
     <color name="default_menu_press_text">#000000</color>
     <color name="default_menu_text">#00cf9b</color>
     <color name="divider">#f1f1f1</color>
+
+
+    <color name="dialog_line_bg">#c6c6c6</color>
+    <color name="dialog_meeting_bg">#000711</color>
 </resources>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_gray">
+
+        <com.tencent.rtmp.ui.TXCloudVideoView
+            android:id="@+id/live_cloud_remote_screenshare"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/screenshare_main_bg" />
+
+        <com.android.xg.ambulance.export.meet.DrawView
+            android:id="@+id/draw_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/transparent2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_toLeftOf="@id/live_cloud_remote_screenshare"
+            android:layout_toRightOf="@id/rl"
+            android:padding="@dimen/dp_8"
+            android:text="退出"
+            android:textColor="@color/white"
+            tools:ignore="NotSibling" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_toRightOf="@id/live_cloud_remote_screenshare"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_left_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_dir_left_top" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_right_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_dir_right_top" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_left_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_dir_left_bottom" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_right_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_dir_right_bottom" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_switch" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_pencil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_pencil" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_mic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/selector_mic" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+
+

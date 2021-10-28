@@ -47,6 +47,11 @@ public abstract class BaseXFragment<B extends ViewDataBinding> extends Fragment 
             mDataBinding.unbind();
     }
 
+    @Override
+    public void keepScreenOn() {
+
+    }
+
     /**
      * 获取InputMethodManager，隐藏软键盘
      *

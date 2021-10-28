@@ -10,6 +10,8 @@ public interface BaseInterface {
 
     abstract void init(View root);
 
+    void keepScreenOn();
+
     void setFullScreen();
 
     void exitFullScreen();

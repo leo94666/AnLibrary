@@ -3,11 +3,11 @@ package com.android.xg.ambulance.welcome
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import com.android.xg.ambulance.MainActivity
+import com.android.xg.ambulance.main.MainActivity
 import com.android.xg.ambulance.R
 import com.android.xg.ambulance.databinding.ActivityWelcomeBinding
 import com.android.xg.ambulance.login.LoginActivity
-import com.android.xg.ambulance.personal.AmbulanceProfileManager
+import com.android.xg.ambulancelib.personal.AmbulanceProfileManager
 import com.top.arch.base.BaseActivity
 
 public class WelcomeActivity:BaseActivity<ActivityWelcomeBinding>(){

@@ -10,16 +10,24 @@
         <include
             android:id="@+id/include_toolbar"
             layout="@layout/include_toolbar"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
-        <com.android.xg.ambulance.FirstAidManagerLayout
+        <com.android.xg.ambulance.meet.ToolView
+            android:id="@+id/tool_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@id/first_aid_manager"
+            android:layout_alignEnd="@id/first_aid_manager"
+            android:translationZ="10000dp"/>
+
+        <com.android.xg.ambulance.meet.FirstAidManagerLayout
             android:id="@+id/first_aid_manager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/include_toolbar"
             android:layout_centerHorizontal="true"/>
 
-        <com.android.xg.ambulance.DrawView
+        <com.android.xg.ambulance.meet.DrawView
             android:id="@+id/draw_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -11,16 +11,11 @@ import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -34,6 +29,9 @@ import com.top.androidx.vtabs.util.DisplayUtil;
 import com.top.androidx.vtabs.util.TabFragmentManager;
 import com.top.androidx.vtabs.widget.QTabView;
 import com.top.androidx.vtabs.widget.TabView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class VerticalTabLayout extends ScrollView {
@@ -78,7 +76,7 @@ public class VerticalTabLayout extends ScrollView {
                 context.getResources().getColor(R.color.colorAccent));
         mIndicatorWidth = (int) typedArray.getDimension(R.styleable.VerticalTabLayout_indicator_width, DisplayUtil.dp2px(context, 3));
         mIndicatorCorners = typedArray.getDimension(R.styleable.VerticalTabLayout_indicator_corners, 0);
-        mIndicatorGravity = typedArray.getInteger(R.styleable.VerticalTabLayout_indicator_gravity, Gravity.LEFT);
+        mIndicatorGravity = typedArray.getInteger(R.styleable.VerticalTabLayout_indicator_vertical_tab_gravity, Gravity.LEFT);
         if (mIndicatorGravity == 3) {
             mIndicatorGravity = Gravity.LEFT;
         } else if (mIndicatorGravity == 5) {

@@ -1,5 +1,7 @@
 package com.top.arch.util;
 
+import static android.Manifest.permission.WRITE_SETTINGS;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
@@ -9,9 +11,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.os.Build;
 import android.provider.Settings;
-
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
@@ -20,8 +20,6 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
-
-import static android.Manifest.permission.WRITE_SETTINGS;
 
 /**
  * <pre>
@@ -43,15 +41,20 @@ public final class ScreenUtils {
      * @return the width of screen, in pixel
      */
     public static int getScreenWidth() {
-        WindowManager wm = (WindowManager) AnUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
-        if (wm == null) return -1;
-        Point point = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            wm.getDefaultDisplay().getRealSize(point);
-        } else {
-            wm.getDefaultDisplay().getSize(point);
-        }
-        return point.x;
+//        WindowManager wm = (WindowManager) AnUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
+//        if (wm == null) return -1;
+//        Point point = new Point();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//            wm.getDefaultDisplay().getRealSize(point);
+//        } else {
+//            wm.getDefaultDisplay().getSize(point);
+//        }
+        WindowManager mWindowManager  = (WindowManager) AnUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        mWindowManager.getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;//获取到的是px，像素，绝对像素，需要转化为dpi
+        int height = metrics.heightPixels;
+        return width;
     }
 
     /**
@@ -60,15 +63,20 @@ public final class ScreenUtils {
      * @return the height of screen, in pixel
      */
     public static int getScreenHeight() {
-        WindowManager wm = (WindowManager) AnUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
-        if (wm == null) return -1;
-        Point point = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            wm.getDefaultDisplay().getRealSize(point);
-        } else {
-            wm.getDefaultDisplay().getSize(point);
-        }
-        return point.y;
+//        WindowManager wm = (WindowManager) AnUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
+//        if (wm == null) return -1;
+//        Point point = new Point();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//            wm.getDefaultDisplay().getRealSize(point);
+//        } else {
+//            wm.getDefaultDisplay().getSize(point);
+//        }
+        WindowManager mWindowManager  = (WindowManager) AnUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        mWindowManager.getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;//获取到的是px，像素，绝对像素，需要转化为dpi
+        int height = metrics.heightPixels;
+        return height;
     }
 
     /**

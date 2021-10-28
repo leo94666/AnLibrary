@@ -57,16 +57,16 @@
             android:name="com.tencent.rtmp.video.TXScreenCapture$TXScreenCaptureAssistantActivity"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true"
             android:screenOrientation="landscape">
 
         </activity>
-        <activity android:name=".SettingActivity"
+        <activity android:name=".setting.SettingActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".FirstAidActivity"
+        <activity android:name=".meet.FirstAidActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".ListOfExportsActivity"
+        <activity android:name=".export.ListOfExportsActivity"
             android:screenOrientation="landscape"/>
 
         <activity android:name=".login.LoginActivity"
@@ -79,12 +79,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService"></service>
-        <service android:name=".RoomService" />
+        <service android:name=".service.RoomService" />
     </application>
 
 </manifest>

@@ -6,17 +6,17 @@ import android.text.InputType
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.android.xg.ambulance.LiveDataEvent
-import com.android.xg.ambulance.MainActivity
 import com.android.xg.ambulance.R
 import com.android.xg.ambulance.databinding.ActivityLoginBinding
+import com.android.xg.ambulance.main.MainActivity
+import com.android.xg.ambulance.utils.KeyboardUtil
+import com.android.xg.ambulancelib.AmbulanceViewModel
+import com.android.xg.ambulancelib.LiveDataEvent
+import com.elab.libarch.utils.BaseUtils
 import com.elab.libarch.utils.PatternUtils
 import com.top.androidx.superview.SuperAppCompatEditText
 import com.top.arch.base.BaseActivity
-import com.top.arch.utils.BaseUtils
 import javax.inject.Inject
-import com.android.xg.ambulance.utils.KeyboardUtil
-import com.top.arch.util.KeyboardUtils
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
@@ -65,14 +65,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             val account: String = mDataBinding.stvAccount.content
             val passwordOrSmsCode: String = mDataBinding.stvPasswordVerification.content
 
-            if (carNumber.isNullOrEmpty()) {
-                Toast.makeText(
-                    this,
-                    resources.getString(R.string.empty_id_check_car_number),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
+//            if (carNumber.isNullOrEmpty()) {
+//                Toast.makeText(
+//                    this,
+//                    resources.getString(R.string.empty_id_check_car_number),
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                return@setOnClickListener
+//            }
 
             if (!PatternUtils.patternMatcherPhone(account)) {
                 Toast.makeText(
@@ -105,7 +105,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 }
             }
             val isPassword: Boolean = !mDataBinding.stvPasswordVerification.isVerificationMode
-            loginViewModel?.login(carNumber, account, passwordOrSmsCode, isPassword)
+            loginViewModel?.login(carNumber, account, passwordOrSmsCode, isPassword,AmbulanceViewModel.ROLE.INTERNATIONAL)
         }
 
         mDataBinding.stvPasswordVerification.setSuperEditTextListener(object :

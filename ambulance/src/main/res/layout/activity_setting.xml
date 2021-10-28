@@ -37,7 +37,7 @@
                     android:background="@color/white"
                     app:indicator_color="@color/white"
                     app:indicator_corners="@dimen/dp_5"
-                    app:indicator_gravity="fill"
+                    app:indicator_vertical_tab_gravity="fill"
                     app:tab_height="@dimen/dp_50"
                     app:tab_margin="@dimen/dp_20"
                     app:tab_mode="scrollable">

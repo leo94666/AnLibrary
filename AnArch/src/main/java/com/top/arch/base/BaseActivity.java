@@ -1,9 +1,10 @@
 package com.top.arch.base;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
@@ -32,10 +33,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.top.arch.R;
 import com.top.arch.app.AppManager;
-import com.top.arch.util.LogUtils;
-import com.top.arch.util.ToastUtils;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -49,7 +47,6 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     protected static final int REQ_PERMISSION_CODE = 0x1000;
     protected int mGrantedCount = 0;
 
-
     public abstract int getLayout();
 
     public abstract void init(View root);
@@ -59,12 +56,41 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     private MediaProjection mediaProjection;
     private Image image;
 
+    private BaseMessageReceiver mBaseMessageReceiver;
+
+    public void doRegisterReceiver(String... data) {
+        mBaseMessageReceiver = new BaseMessageReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        for (int i = 0; i < data.length; i++) {
+            intentFilter.addAction(data[i]);
+        }
+        registerReceiver(mBaseMessageReceiver, intentFilter);
+    }
+
+    private void unRegisterReceiver() {
+        if (mBaseMessageReceiver != null) {
+            unregisterReceiver(mBaseMessageReceiver);
+            mBaseMessageReceiver=null;
+        }
+    }
+
+    public void onMessage(Intent intent) {
+    }
+
+    public void sendMessage(String action, String key, String msg) {
+        Intent intent = new Intent();
+        intent.setAction(action);
+        intent.putExtra(key, msg);
+        sendBroadcast(intent);
+    }
+
+
     public void onScreenShot(Bitmap bitmap) {
 
     }
 
     protected void onPermissionGranted() {
-
+        Log.e(TAG,"===========onPermissionGranted");
     }
 
 
@@ -77,13 +103,23 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
                 }
             }
             if (permissions.size() != 0) {
+                String[] permissionsString = permissions.toArray(new String[0]);
                 ActivityCompat.requestPermissions(this,
-                        permissions.toArray(new String[0]),
+                        permissionsString,
                         REQ_PERMISSION_CODE);
                 return false;
             }
         }
         return true;
+    }
+
+
+    private class BaseMessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onMessage(intent);
+        }
     }
 
     @Override
@@ -108,9 +144,15 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unRegisterReceiver();
         AppManager.getInstance().finishActivity(this);
     }
 
+
+    @Override
+    public void keepScreenOn() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 
     @Override
     public void setFullScreen() {

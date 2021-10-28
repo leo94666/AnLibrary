@@ -35,6 +35,7 @@
                 app:super_edit_text_icon="@drawable/ic_car_number"
                 app:super_edit_text_hint="请输入车牌号"
                 app:super_edit_type="super_other"
+                android:visibility="gone"
                 app:super_edit_under_line_height="0dp"/>
 
             <com.top.androidx.superview.SuperAppCompatEditText
@@ -86,6 +87,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal|bottom"
             android:padding="20dp"
+            android:visibility="gone"
             android:text="@string/verification_code_login"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

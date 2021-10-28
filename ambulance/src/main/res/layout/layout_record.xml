@@ -5,8 +5,8 @@
     <LinearLayout
         android:id="@+id/rl_record"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_300"
-        android:background="@color/color_gray"
+        android:layout_height="wrap_content"
+        android:background="@color/color_gainsboro"
         android:orientation="vertical">
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -18,6 +18,51 @@
             android:padding="@dimen/dp_8"
             android:layout_gravity="center"
             />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:background="@drawable/bg_input"
+            android:layout_margin="@dimen/dp_5">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="会议昵称"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始时间"
+                android:gravity="center"
+
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="会议状态"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </layout>

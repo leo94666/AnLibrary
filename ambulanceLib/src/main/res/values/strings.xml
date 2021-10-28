@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ambulance</string>
+
+    <string name="verification_code_login">手机验证码登录</string>
+    <string name="account_password_login">账号密码登录</string>
+    <string name="prompt_password">请输入密码</string>
+    <string name="prompt_smscode">请输入验证码</string>
+    <string name="empty_id_password_tip">请输入正确的密码！</string>
+    <string name="empty_id_account_tip">请输入正确的账号！</string>
+    <string name="empty_id_smscode_tip">请输入正确的验证码！</string>
+    <string name="empty_id_check_phone">请检查手机号！</string>
+    <string name="empty_id_check_car_number">请先绑定车牌号！</string>
+
+    <string name="prompt_email">请输入手机号</string>
+
+</resources>
