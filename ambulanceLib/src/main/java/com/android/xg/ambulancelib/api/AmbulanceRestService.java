@@ -9,6 +9,7 @@ import com.android.xg.ambulancelib.bean.MeetHistoryResultBean;
 import com.android.xg.ambulancelib.bean.MeetInfoResultBean;
 import com.android.xg.ambulancelib.bean.RankResultBean;
 import com.android.xg.ambulancelib.bean.ResultBean;
+import com.android.xg.ambulancelib.bean.SectionsDoctorsResultBean;
 import com.android.xg.ambulancelib.bean.UserResultBean;
 
 import java.util.Map;
@@ -92,6 +93,10 @@ public interface AmbulanceRestService {
     @GET("/api/server/ambulance/meeting/{meetingId}")
     Observable<MeetInfoResultBean> meetInfo(@HeaderMap Map<String, String> header, @Path("meetingId") String meetingId);
 
+    @GET("/api/server/ambulance/initiator/meeting/history")
+    Observable<MeetHistoryResultBean> historyMeeting(@HeaderMap Map<String, String> header);
+
+
     //专家端
     @GET("/api/server/ambulance/initiator/meeting/member/{meetingId}")
     Observable<MeetHistoryResultBean> roomMembers(@HeaderMap Map<String, String> header, @Path("meetingId") String meetingId);
@@ -105,11 +110,19 @@ public interface AmbulanceRestService {
     @GET("/api/server/ambulance/doctor/meeting/alive")
     Observable<MeetHistoryResultBean> aliveMeeting(@HeaderMap Map<String, String> header);
 
-    @GET("/api/server/ambulance/doctor/meeting/history")
-    Observable<MeetHistoryResultBean> historyMeeting(@HeaderMap Map<String, String> header);
+
 
 
     //
     @DELETE("/api/server/ambulance/ident/{ident}")
     Observable<ResultBean> removeID(@HeaderMap Map<String, String> header,@Path("ident") String id);
+
+
+
+    //
+    @GET("/api/server/ambulance/hospital/{hospitalId}/sections")
+    Observable<ResultBean> sections(@HeaderMap Map<String, String> header,@Path("hospitalId") String hospital);
+
+    @GET("/api/server/ambulance/hospital/{hospitalId}/sections/doctors")
+    Observable<SectionsDoctorsResultBean> sectionsDoctors(@HeaderMap Map<String, String> header, @Path("hospitalId") int hospital);
 }

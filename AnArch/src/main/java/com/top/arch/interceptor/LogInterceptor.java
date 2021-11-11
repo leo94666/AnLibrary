@@ -17,6 +17,7 @@ public class LogInterceptor implements Interceptor{
     private String TAG = "LogInterceptor";
     @Override
     public okhttp3.Response intercept(Chain chain) throws IOException {
+        Log.e(TAG,"==============================Interceptor Start===============================");
         Request request = chain.request();
         Log.e(TAG,"request:" + request.toString());
         Log.e(TAG,"request header:" + request.headers());
@@ -31,6 +32,9 @@ public class LogInterceptor implements Interceptor{
 
 
         Log.e(TAG,"response body:" + content);
+
+        Log.e(TAG,"==============================Interceptor End===============================");
+
         return response.newBuilder()
                 .body(okhttp3.ResponseBody.create(mediaType, content))
                 .build();

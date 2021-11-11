@@ -20,9 +20,10 @@ class ExportsAdapter(
 
     private lateinit var mData: MutableList<Exports>
 
-    private  var mOnSelectedListener: OnSelectedListener?=null
+    private var mOnSelectedListener: OnSelectedListener? = null
+
     interface OnSelectedListener {
-        fun onSelectedItem(position: Exports, isChecked:Boolean): Boolean
+        fun onSelectedItem(position: Exports, isChecked: Boolean): Boolean
     }
 
     fun setOnSelectedListener(mOnSelectedListener: OnSelectedListener) {
@@ -31,7 +32,7 @@ class ExportsAdapter(
 
 
     init {
-        this.mData= mutableListOf()
+        this.mData = mutableListOf()
 
     }
 
@@ -42,7 +43,7 @@ class ExportsAdapter(
 
     override fun onBindViewHolder(holder: ExportsHolder, position: Int) {
         holder.tvName.text = mData[position].name
-
+        holder.checkBox.isChecked = mData[position].isSelected
         Glide.with(mContext)
             .load(mData[position].avatar)
             .circleCrop()
@@ -57,13 +58,13 @@ class ExportsAdapter(
         holder.itemView.setOnClickListener {
             //Toast.makeText(mContext,"UUUUUUU",Toast.LENGTH_SHORT).show()
             val checked = holder.checkBox.isChecked
-            if (checked){
+            if (checked) {
                 //已经是选中的
-                holder.checkBox.isChecked=false
-                mOnSelectedListener?.onSelectedItem(mData[position],false)
-            }else{
-                holder.checkBox.isChecked=true
-                mOnSelectedListener?.onSelectedItem(mData[position],true)
+                holder.checkBox.isChecked = false
+                mOnSelectedListener?.onSelectedItem(mData[position], false)
+            } else {
+                holder.checkBox.isChecked = true
+                mOnSelectedListener?.onSelectedItem(mData[position], true)
             }
         }
 
@@ -80,13 +81,25 @@ class ExportsAdapter(
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+
     public fun addData(mData: MutableList<Exports>) {
-        if (this.mData.isNullOrEmpty()){
-            this.mData= mutableListOf()
+        if (this.mData.isNullOrEmpty()) {
+            this.mData = mutableListOf()
         }
         this.mData.addAll(mData)
         notifyDataSetChanged()
+    }
 
+    public fun clear() {
+        if (mData.isNullOrEmpty()) {
+            this.mData = mutableListOf()
+        }
+        this.mData.clear()
+        notifyDataSetChanged()
     }
 
     inner class ExportsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

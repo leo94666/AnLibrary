@@ -9,6 +9,7 @@ import android.os.IBinder
 import android.util.Log
 import com.android.xg.ambulance.meet.FirstAidActivity
 import com.android.xg.ambulancelib.personal.AmbulanceProfileManager
+import com.top.arch.util.DeviceUtils
 import okhttp3.*
 import okio.ByteString
 import java.util.concurrent.TimeUnit
@@ -18,7 +19,7 @@ class RoomService : Service() {
     companion object {
         val RoomServiceAction = "com.android.xg.ambulance.service.RoomService"
         val RoomServiceOpenedAction = "com.android.xg.ambulance.Open"
-        val RoomServiceClosedAction = "com.android.xg.ambulance..Close"
+        val RoomServiceClosedAction = "com.android.xg.ambulance.Close"
         val RoomServiceErrorAction = "com.android.xg.ambulance.service.RoomService.error"
 
         val RoomServiceMessageAction = "com.android.xg.ambulance.service.RoomService.message"
@@ -83,9 +84,11 @@ class RoomService : Service() {
             .readTimeout(5, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .build()
+
+        val macAddress = DeviceUtils.getUniqueDeviceId()
         val request: Request =
             Request.Builder()
-                .url("ws://118.195.158.116:8007?userId=" + AmbulanceProfileManager.getInstance().userId)
+                .url("ws://118.195.158.116:8007?userId=" + AmbulanceProfileManager.getInstance().userId  + "&ident=" + macAddress)
                 .header("Upgrade", "WebSocket")
                 .addHeader("Origin", "http://stackexchange.com")
                 .build()

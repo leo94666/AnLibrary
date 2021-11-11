@@ -123,7 +123,7 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
 
     private fun endMeet() {
         val msg = buildWebSocketMessage(
-            existInviteIds as ArrayList<String>, Action.END_MEETING.action,
+            inviteIds as ArrayList<String>, Action.END_MEETING.action,
             null, 0
         )
         Log.i(TAG, "====================$msg")
@@ -444,7 +444,7 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
                 super.onRemoteUserLeaveRoom(userId, reason)
                 val contains = inviteIds.contains(userId)
                 if (contains) {
-                    inviteIds.remove(userId!!)
+                    //inviteIds.remove(userId!!)
                 } else {
 
                 }
@@ -457,10 +457,7 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
                 super.onUserAudioAvailable(userId, available)
                 Toast.makeText(this@FirstAidActivity,"userId: $userId, available: $available",Toast.LENGTH_SHORT).show()
             }
-
-
         }
-
     }
 
     companion object {

@@ -8,5 +8,6 @@ data class Exports(
     var name: String,
     var avatar: String,
     var certification: Boolean,
-    var score: Int
+    var score: Int,
+    var isSelected:Boolean=false
 ) : Serializable

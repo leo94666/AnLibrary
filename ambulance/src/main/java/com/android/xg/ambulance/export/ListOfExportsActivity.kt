@@ -12,6 +12,9 @@ import com.android.xg.ambulance.meet.FirstAidActivity
 import com.android.xg.ambulancelib.AmbulanceViewModel
 import com.android.xg.ambulancelib.LiveDataEvent
 import com.android.xg.ambulancelib.bean.DoctorResultBean
+import com.android.xg.ambulancelib.bean.SectionsDoctorsResultBean
+import com.android.xg.ambulancelib.personal.AmbulanceProfileManager
+import com.top.androidx.tabs.listener.OnTabSelectListener
 import com.top.arch.base.BaseActivity
 import com.top.arch.utils.BaseUtils
 import javax.inject.Inject
@@ -24,7 +27,9 @@ class ListOfExportsActivity : BaseActivity<FragmentListOfExportBinding>() {
     @Inject
     var ambulanceViewModel: AmbulanceViewModel? = null
 
-    val mTitles = arrayOf("全部", "呼吸科", "神经内科", "外科")
+    private val mTitles = mutableListOf("全部")
+    private val mALLDoctors = mutableListOf<DoctorResultBean.Doctor>()
+    private val mSections = mutableListOf<SectionsDoctorsResultBean.SectionsDoctors>()
 
     var exportsAdapter: ExportsAdapter? = null
 
@@ -42,12 +47,10 @@ class ListOfExportsActivity : BaseActivity<FragmentListOfExportBinding>() {
     override fun init(view: View?) {
         ambulanceViewModel = ViewModelProvider(this).get(AmbulanceViewModel::class.java)
 
-        mDataBinding.tabType.visibility = View.GONE
-        mDataBinding.tabType.setTabData(mTitles)
+        //mDataBinding.tabType.visibility = View.GONE
+
         mDataBinding.tvCancel.setOnClickListener { finish() }
         mDataBinding.tvSure.setOnClickListener {
-
-            //Toast.makeText(this@ListOfExportsActivity,""+mSelectedExport.size,Toast.LENGTH_SHORT).show()
             if (mSelectedExport.size == 0) {
                 Toast.makeText(this@ListOfExportsActivity, "请先选择专家!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -55,11 +58,28 @@ class ListOfExportsActivity : BaseActivity<FragmentListOfExportBinding>() {
             FirstAidActivity.startFirstAidActivity(this, mSelectedExport as ArrayList<Exports>)
         }
 
+        ambulanceViewModel?.sectionsDoctors(AmbulanceProfileManager.getInstance().hospital.hospitalId,
+            object : AmbulanceViewModel.ActionResult {
+                override fun onError() {
+
+                }
+
+                override fun onSuccess(any: Any?) {
+                    if (any is ArrayList<*>) {
+                        val buildTitle =
+                            buildTitle(any as ArrayList<SectionsDoctorsResultBean.SectionsDoctors>)
+                        mTitles.addAll(buildTitle)
+                        mDataBinding.tabType.setTabData(mTitles.toTypedArray())
+                    }
+                }
+            })
+
         mDataBinding.rvList.layoutManager = GridLayoutManager(this, 3)
         exportsAdapter = ExportsAdapter(this)
         mDataBinding.rvList.adapter = exportsAdapter
 
         mSelectedExport.clear()
+
         exportsAdapter?.setOnSelectedListener(object : ExportsAdapter.OnSelectedListener {
 
             override fun onSelectedItem(position: Exports, isChecked: Boolean): Boolean {
@@ -80,12 +100,50 @@ class ListOfExportsActivity : BaseActivity<FragmentListOfExportBinding>() {
                 exportsAdapter?.addData(exports)
             }
         })
+
+        mDataBinding.tabType.setOnTabSelectListener(object : OnTabSelectListener {
+            override fun onTabSelect(position: Int) {
+                //Toast.makeText(this@ListOfExportsActivity, "onTabSelect: $position", Toast.LENGTH_SHORT).show()
+                if (position == 0) {
+                    exportsAdapter?.clear()
+                    exportsAdapter?.addData(buildExports(mALLDoctors as ArrayList<DoctorResultBean.Doctor>))
+                } else {
+                    exportsAdapter?.clear()
+                    exportsAdapter?.addData(buildExports(mSections[position - 1].doctors))
+                }
+            }
+
+            override fun onTabReselect(position: Int) {
+                //Toast.makeText(this@ListOfExportsActivity, "onTabReselect: $position", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun buildTitle(data: ArrayList<SectionsDoctorsResultBean.SectionsDoctors>): ArrayList<String> {
+        var mData = arrayListOf<String>()
+        mALLDoctors.clear()
+        mSections.clear()
+        data.forEach {
+            mData.add(it.name)
+            mALLDoctors.addAll(it.doctors)
+            mSections.add(it)
+        }
+        return mData
     }
 
     private fun buildExports(doctors: ArrayList<DoctorResultBean.Doctor>): MutableList<Exports> {
         var exports = mutableListOf<Exports>()
         doctors.forEach {
-            exports.add(Exports(it.userName!!, it.userId!!,it.info?.nickName!!, it.info?.avatar!!, false, 0))
+            exports.add(
+                Exports(
+                    it.userName!!,
+                    it.userId!!,
+                    it.info?.nickName!!,
+                    it.info?.avatar!!,
+                    false,
+                    0
+                )
+            )
         }
         return exports
     }

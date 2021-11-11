@@ -129,6 +129,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
         initListener()
     }
 
+
     private fun initListener() {
 
         mDataBinding.includeToolbar.tvExit.setOnClickListener {

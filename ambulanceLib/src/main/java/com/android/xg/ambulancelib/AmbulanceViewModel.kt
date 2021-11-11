@@ -379,7 +379,7 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
         AmbulanceRestClient.getApiUrl().aliveMeeting(mHeaderDataMap)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe(object : io.reactivex.Observer<MeetHistoryResultBean>{
+            .subscribe(object : io.reactivex.Observer<MeetHistoryResultBean> {
                 override fun onSubscribe(d: Disposable) {
 
                 }
@@ -493,12 +493,12 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
 
     }
 
-    fun meetInfo(meetingId: String?,actionResult: ActionResult){
+    fun meetInfo(meetingId: String?, actionResult: ActionResult) {
         val mHeaderDataMap: MutableMap<String, String> = HashMap()
         mHeaderDataMap["Authorization"] =
             "Bearer " + AmbulanceProfileManager.getInstance().secretBean.accessToken
 
-        AmbulanceRestClient.getApiUrl().meetInfo(mHeaderDataMap,meetingId)
+        AmbulanceRestClient.getApiUrl().meetInfo(mHeaderDataMap, meetingId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(object : io.reactivex.Observer<MeetInfoResultBean> {
@@ -528,7 +528,7 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
     }
 
 
-    fun removeId(actionResult: ActionResult?){
+    fun removeId(actionResult: ActionResult?) {
         val mHeaderDataMap: MutableMap<String, String> = HashMap()
         mHeaderDataMap["Authorization"] =
             "Bearer " + AmbulanceProfileManager.getInstance().secretBean.accessToken
@@ -556,4 +556,35 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
             })
     }
 
+
+    fun sectionsDoctors(hospitalId: Int, actionResult: ActionResult?) {
+        val mHeaderDataMap: MutableMap<String, String> = HashMap()
+        mHeaderDataMap["Authorization"] =
+            "Bearer " + AmbulanceProfileManager.getInstance().secretBean.accessToken
+
+        AmbulanceRestClient.getApiUrl().sectionsDoctors(mHeaderDataMap, hospitalId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object : io.reactivex.Observer<SectionsDoctorsResultBean> {
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: SectionsDoctorsResultBean) {
+                    if (t.statusCode == LiveDataEvent.SUCCESS) {
+                        actionResult?.onSuccess(t.data)
+                    } else {
+                        Toast.makeText(context, t.statusMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(context, "server error!", Toast.LENGTH_SHORT).show();
+                }
+
+                override fun onComplete() {
+
+                }
+            })
+    }
 }

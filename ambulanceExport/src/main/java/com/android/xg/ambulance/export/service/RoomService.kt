@@ -100,7 +100,7 @@ class RoomService : Service() {
             .build()
 
         val macAddress = DeviceUtils.getUniqueDeviceId()
-        Log.e(TAG,"唯一id: $macAddress")
+        Log.e(TAG, "唯一id: $macAddress")
         //Toast.makeText(this,macAddress,Toast.LENGTH_SHORT).show()
         val request: Request =
             Request.Builder()
@@ -182,7 +182,7 @@ class RoomService : Service() {
                 Action.SSO.action -> {
                     sendStickyBroadcast(intent)
                 }
-                else->{
+                else -> {
                     sendBroadcast(intent)
                 }
             }
