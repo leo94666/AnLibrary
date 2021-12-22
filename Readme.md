@@ -7,6 +7,7 @@
 - app
     - AppManager
 - base
+    - BaseApplication
     - BaseActivity
     - BaseFragment
     - BasePureActivity
