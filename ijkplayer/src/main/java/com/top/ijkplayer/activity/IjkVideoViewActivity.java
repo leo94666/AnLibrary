@@ -12,6 +12,7 @@ import com.top.ijkplayer.widget.controller.BibiBiliMediaController;
 import com.top.ijkplayer.widget.media.AndroidMediaController;
 import com.top.ijkplayer.widget.media.IjkVideoView;
 
+import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class IjkVideoViewActivity extends AppCompatActivity {
@@ -50,8 +51,23 @@ public class IjkVideoViewActivity extends AppCompatActivity {
         //mVideoView.setVideoPath("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
         //mVideoView.setVideoPath("rtmp://media3.scctv.net/live/scctv_800");
        // mVideoView.setVideoPath("https://ebs-1306092442.cos.ap-nanjing.myqcloud.com/%E6%B5%8B%E8%AF%95%E7%97%85%E4%BE%8B/%E7%97%85%E4%BE%8B%E4%BD%A0%E5%A5%BD/tmp5BC4.mp4");
-        mVideoView.setVideoPath("rtsp://admin:bjxg12345@192.168.100.112:554/h264/ch1/main/av_stream");
-
+        //mVideoView.setVideoPath("rtsp://admin:bjxg12345@192.168.100.112:554/h264/ch1/main/av_stream");
+        //mVideoView.setVideoPath("rtsp://admin:bjxg12345@192.168.100.112:554/Streaming/Channels/101?transportmode=unicast");
+        mVideoView.setVideoPath("rtmp://1h78k74885.51mypc.cn:1935/live/test_main0");
+        
         mVideoView.start();
+        mVideoView.setOnInfoListener(new IMediaPlayer.OnInfoListener() {
+            @Override
+            public boolean onInfo(IMediaPlayer mp, int what, int extra) {
+                return false;
+            }
+        });
+        mVideoView.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(IMediaPlayer mp, int what, int extra) {
+
+                return false;
+            }
+        });
     }
 }
