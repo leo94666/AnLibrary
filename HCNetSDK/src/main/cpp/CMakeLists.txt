@@ -6,4 +6,4 @@ add_library(
         SHARED
         hcnetsdk.cpp
 )
-target_link_libraries(BBB lib)
+#target_link_libraries(BBB lib)

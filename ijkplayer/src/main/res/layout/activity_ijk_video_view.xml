@@ -21,6 +21,28 @@
         tools:ignore="MissingConstraints" />
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_url"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_24"
+            android:hint="rtsp/rtmp/rtp"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/et_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="play"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"/>
+    </LinearLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
