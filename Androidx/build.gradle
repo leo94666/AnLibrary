@@ -38,6 +38,7 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     api project(path: ':AnArch')
 

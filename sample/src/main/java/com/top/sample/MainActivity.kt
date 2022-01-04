@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.top.androidx.pick.pickview.builder.TimePickerBuilder
 import com.top.androidx.pick.pickview.listener.OnTimeSelectListener
+import com.top.arch.Top
+import com.top.arch.util.CrashUtils.init
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         //click.setOn
 
 
+        T
 
 
         tv.setOnClickListener {
