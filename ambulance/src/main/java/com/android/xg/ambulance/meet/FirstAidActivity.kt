@@ -455,7 +455,11 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
 
             override fun onUserAudioAvailable(userId: String?, available: Boolean) {
                 super.onUserAudioAvailable(userId, available)
-                Toast.makeText(this@FirstAidActivity,"userId: $userId, available: $available",Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@FirstAidActivity,
+                    "userId: $userId, available: $available",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

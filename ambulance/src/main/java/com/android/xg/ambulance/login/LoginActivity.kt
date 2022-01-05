@@ -163,7 +163,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun onBackPressed() {
         //super.onBackPressed()
         keyboardUtils.hideKeyboard()
-
     }
 
     companion object {

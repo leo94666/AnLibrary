@@ -42,9 +42,7 @@
                     app:tab_margin="@dimen/dp_20"
                     app:tab_mode="scrollable">
 
-
                 </com.top.androidx.vtabs.VerticalTabLayout>
-
 
             </LinearLayout>
 
@@ -65,13 +63,11 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
                         <!--系统设置-->
-
                         <include
                             android:id="@+id/include_single"
                             layout="@layout/layout_single" />
 
                         <!--个人中心-->
-
                         <include
                             android:id="@+id/include_user"
                             layout="@layout/layout_user"/>

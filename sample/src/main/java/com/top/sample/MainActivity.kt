@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         //click.setOn
 
 
-        T
+
 
 
         tv.setOnClickListener {

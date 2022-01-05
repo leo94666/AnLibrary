@@ -1,0 +1,22 @@
+{
+  "type": 2,
+  "activationCode": "dsdfsfsaffdsfdfasfsdafsafde",
+  "Device": [
+    {
+      "ip": "110.110.110.110",
+      "port": "8080",
+      "account": "bjxg",
+      "password": "bjxg12345",
+      "channel": "1"
+    }
+  ],
+  "Camera": [
+    {
+      "ip": "110.110.110.110",
+      "port": "8080",
+      "account": "bjxg",
+      "password": "bjxg12345",
+      "channel": "1"
+    }
+  ]
+}

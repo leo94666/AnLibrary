@@ -42,6 +42,13 @@ android {
         //noinspection DataBindingWithoutKapt
         enabled true
     }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets'
+            }
+        }
+    }
 }
 
 dependencies {

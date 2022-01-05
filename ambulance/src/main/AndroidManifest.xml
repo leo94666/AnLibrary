@@ -74,6 +74,11 @@
             android:screenOrientation="landscape">
 
         </activity>
+        <activity android:name=".login.ActiveActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:screenOrientation="landscape">
+
+        </activity>
         <activity android:name=".welcome.WelcomeActivity"
             android:screenOrientation="landscape">
             <intent-filter>
