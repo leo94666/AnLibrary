@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_dir_left_bottom" android:state_selected="true" />
-    <item android:drawable="@drawable/ic_dir_left_bottom_gray" android:state_selected="false"/>
-
-</selector>

@@ -1,6 +1,4 @@
-rootProject.name = 'AnLibrary'
-
-
+//rootProject.name = 'AnLibrary'
 include ':AnUpdate'
 include ':SuperInput'
 include ':Androidx'
