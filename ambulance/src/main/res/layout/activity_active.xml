@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:id="@+id/ll"
-            android:layout_width="@dimen/dp_300"
+            android:layout_width="@dimen/dp_400"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
@@ -33,30 +33,30 @@
             <com.top.androidx.superview.SuperAppCompatEditText
                 android:id="@+id/stv_car_number"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_36"
+                android:layout_height="@dimen/dp_48"
                 app:super_edit_text_background="@drawable/bg_input"
                 app:super_edit_text_icon="@drawable/ic_car_number"
                 app:super_edit_text_hint="请输入车牌号"
                 app:super_edit_type="super_other"
+                app:super_edit_show_delete_icon="false"
                 android:visibility="visible"
                 app:super_edit_under_line_height="0dp"/>
 
             <com.top.androidx.superview.SuperAppCompatEditText
-                android:id="@+id/stv_account"
+                android:id="@+id/stv_active_code"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_36"
-
+                android:layout_height="@dimen/dp_48"
                 app:super_edit_text_background="@drawable/bg_input"
                 app:super_edit_text_icon="@drawable/ic_user_account_gray"
                 app:super_edit_text_hint="请输入激活码"
-                app:super_edit_type="super_phone"
+                app:super_edit_type="super_other"
                 app:super_edit_under_line_height="0dp"
                 android:layout_marginTop="@dimen/dp_10"/>
 
 
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/fragment_login_button"
+                android:id="@+id/fragment_active_button"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="12dp"
@@ -68,10 +68,15 @@
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@id/ll"/>
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_scan"
+                android:layout_margin="@dimen/dp_10"/>
+
         </LinearLayout>
-
-
-
 
         <TextView
             android:id="@+id/tv_login_mode"

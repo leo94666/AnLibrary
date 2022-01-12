@@ -65,8 +65,8 @@ dependencies {
 
     implementation 'com.gitee.leo946666.ELab:libarch:2.3.1.1.18'
     implementation 'com.gitee.leo946666.ELab:HCNetSDK:2.3.1.1.18'
-    implementation project(path: ':Androidx')
-    implementation project(path: ':AnArch')
+    //implementation project(path: ':Androidx')
+    //implementation project(path: ':AnArch')
     implementation "com.tencent.liteav:LiteAVSDK_TRTC:latest.release"
     //implementation "com.tencent.liteav:LiteAVSDK_TRTC:9.1.0.10565"
     //implementation 'com.tencent.imsdk:imsdk-plus:5.4.666'

@@ -94,4 +94,5 @@ dependencies {
     api 'android.arch.lifecycle:extensions:1.1.1'
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     api 'pub.devrel:easypermissions:3.0.0'
+
 }

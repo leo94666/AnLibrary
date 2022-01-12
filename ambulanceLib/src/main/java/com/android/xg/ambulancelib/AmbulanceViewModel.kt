@@ -10,8 +10,13 @@ import com.elab.libarch.http.MyHeadMapUtil
 import com.elab.libarch.utils.MD5Util
 import com.google.gson.Gson
 import com.top.arch.base.BaseViewModel
+import com.top.arch.util.DeviceUtils
 import com.top.arch.util.DeviceUtils.getUniqueDeviceId
+import com.top.arch.util.NetworkUtils
+import com.top.arch.util.StringUtils
+import com.top.arch.util.ToastUtils
 import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -43,7 +48,7 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
         mDataMap["userName"] = account
         mDataMap["version"] = "1"
 
-        val observable: Observable<*>
+        val observable: Observable<LoginResultBean>
 
         if (type) {
             mDataMap["pwd"] = MD5Util.getMD5String(Objects.requireNonNull(password))
@@ -63,7 +68,7 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
 
         observable.observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe(object : io.reactivex.Observer<LoginResultBean?> {
+            .subscribe(object : Observer<LoginResultBean> {
                 override fun onSubscribe(d: Disposable) {
 
                 }
@@ -88,6 +93,80 @@ class AmbulanceViewModel @Inject constructor(application: Application) :
                 override fun onComplete() {}
             })
 
+    }
+
+    fun prepareHeader(): MutableMap<String, String> {
+        val mDataMap: MutableMap<String, String> = HashMap()
+        mDataMap["Authorization"] =
+            "Bearer " + AmbulanceProfileManager.getInstance().activeSecretBean.accessToken
+        return mDataMap
+    }
+
+
+    fun activeDevice(licensePlate: String, activtedCode: String) {
+
+        val mDataMap: MutableMap<String, Any> = HashMap()
+        mDataMap["terminalName"] = "android"
+        mDataMap["serialNumber"] = getUniqueDeviceId()
+        mDataMap["licensePlate"] = licensePlate
+        mDataMap["activtedCode"] = activtedCode
+        AmbulanceRestClient.getApiUrl().activeDevice(mDataMap)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object : Observer<ActiveDeviceResultBean> {
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: ActiveDeviceResultBean) {
+                    if (t.statusCode == LiveDataEvent.SUCCESS) {
+                        AmbulanceProfileManager.getInstance().active(activtedCode, t.data)
+                        timProfile()
+                    } else {
+                        Toast.makeText(context, t.statusMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(context, "server error!", Toast.LENGTH_SHORT).show();
+                }
+
+                override fun onComplete() {
+
+                }
+            })
+    }
+
+
+    fun timProfile() {
+        val mDataMap: MutableMap<String, Any> = HashMap()
+        mDataMap["identifier"] = AmbulanceProfileManager.getInstance().activeSecretBean.accessToken
+        mDataMap["isForever"] = true
+        AmbulanceRestClient.getApiUrl().timProfile(prepareHeader(), mDataMap)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object : io.reactivex.Observer<TimProfileResultBean> {
+                override fun onSubscribe(d: Disposable) {
+
+                }
+
+                override fun onNext(t: TimProfileResultBean) {
+                    if (t.statusCode == LiveDataEvent.SUCCESS) {
+                        AmbulanceProfileManager.getInstance().setTimProfile(t.data)
+                    } else {
+                        Toast.makeText(context, t.statusMessage, Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+                override fun onError(e: Throwable) {
+                    Toast.makeText(context, "server error!", Toast.LENGTH_SHORT).show();
+                }
+
+                override fun onComplete() {
+
+                }
+            })
     }
 
     fun register(userPhone: String, pwd: String, smsCode: String) {

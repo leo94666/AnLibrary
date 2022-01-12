@@ -417,7 +417,6 @@
     </declare-styleable>
 
 
-
     <declare-styleable name="ShapeView">
 
         <attr name="shapeType" format="enum">
@@ -752,13 +751,22 @@
     </declare-styleable>
 
     <declare-styleable name="SuperAppCompatEditText">
+        <!--控件宽度-->
         <attr name="super_edit_text_width" format="dimension" />
+        <!--控件高度-->
         <attr name="super_edit_text_height" format="dimension" />
+        <!--控件宽度-->
         <attr name="super_edit_text_hint" format="string" />
+        <!--控件前端的图标-->
         <attr name="super_edit_text_icon" format="reference" />
+        <!--控件背景色-->
         <attr name="super_edit_text_background" format="reference" />
+        <!--验证码长度-->
         <attr name="super_edit_verification_length" format="integer" />
+        <!-- -->
         <attr name="super_edit_under_line_height" format="dimension" />
+
+        <attr name="super_edit_show_delete_icon" format="boolean" />
 
         <attr name="super_edit_type" format="enum">
             <enum name="super_account" value="0" />

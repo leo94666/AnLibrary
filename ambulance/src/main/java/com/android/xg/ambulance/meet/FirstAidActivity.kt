@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.Log
@@ -26,6 +27,7 @@ import com.tencent.trtc.TRTCCloudDef.*
 import com.tencent.trtc.TRTCCloudListener
 import com.top.arch.base.BaseActivity
 import com.top.arch.util.ScreenUtils
+import com.top.arch.util.ToastUtils
 import com.top.arch.utils.BaseUtils
 import java.util.*
 import javax.inject.Inject
@@ -109,7 +111,8 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
         val inviteBean = ActionInviteBean(
             mRoomId,
             AmbulanceProfileManager.getInstance().screenNum,
-            "android"
+            "android",
+            meetInfo.meetingId!!
         )
         val msg = buildWebSocketMessage(
             inviteIds as ArrayList<String>, Action.INVITE.action,
@@ -256,7 +259,7 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
 
     override fun onPermissionGranted() {
         enterRoom()
-        //screenCapture()
+        screenCapture()
     }
 
     override fun onDestroy() {
@@ -417,6 +420,20 @@ class FirstAidActivity : BaseActivity<ActivityFirstAidBinding>() {
     private fun listener(): TRTCCloudListener {
         return object : TRTCCloudListener() {
 
+            override fun onScreenCaptureStarted() {
+                super.onScreenCaptureStarted()
+
+            }
+
+            override fun onScreenCaptureStopped(reason: Int) {
+                super.onScreenCaptureStopped(reason)
+
+            }
+
+            override fun onError(errCode: Int, errMsg: String?, extraInfo: Bundle?) {
+                super.onError(errCode, errMsg, extraInfo)
+
+            }
             override fun onRemoteUserEnterRoom(userId: String?) {
                 super.onRemoteUserEnterRoom(userId)
                 //ToastUtils.showToast(this@FirstAidActivity, "userId: $userId")

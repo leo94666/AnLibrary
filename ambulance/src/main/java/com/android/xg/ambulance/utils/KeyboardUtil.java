@@ -79,7 +79,9 @@ public class KeyboardUtil {
                 if (mEdit.getText().toString().matches(reg)) {
                     changeKeyboard(true);
                 }
-            } else if (primaryCode == -3) {
+            } else if (primaryCode == -2){
+                hideKeyboard();
+            }else if (primaryCode == -3) {
                 if (editable != null && editable.length() > 0) {
                     //没有输入内容时软键盘重置为省份简称软键盘
                     if (editable.length() == 1) {

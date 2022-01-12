@@ -46,8 +46,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation project(path: ':ambulanceLib')
-    implementation project(path: ':AnArch')
-    implementation project(path: ':Androidx')
+    //implementation project(path: ':AnArch')
+    //implementation project(path: ':Androidx')
 
     implementation 'com.youth.banner:banner:2.0.8'
 

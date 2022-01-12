@@ -3,8 +3,10 @@ package com.android.xg.ambulancelib.personal;
 import android.os.Environment;
 import android.util.Log;
 
+import com.android.xg.ambulancelib.bean.ActiveDeviceResultBean;
 import com.android.xg.ambulancelib.bean.LoginResultBean;
 import com.android.xg.ambulancelib.bean.RankBean;
+import com.android.xg.ambulancelib.bean.TimProfileResultBean;
 import com.android.xg.ambulancelib.bean.UserResultBean;
 import com.elab.libarch.utils.FileUtils;
 import com.google.gson.Gson;
@@ -27,6 +29,10 @@ public class AmbulanceProfileManager {
     private final static String PER_DATA = "per_profile_manager";
     private static final String PER_USER_ID = "per_user_id";
     private static final String PER_USER_LOGIN_INFO = "per_user_login_info";
+
+    private static final String PER_USER_ACTIVE_ID = "per_user_active_id";
+    private static final String PER_USER_ACTIVE_INFO = "per_user_active_info";
+
     private static final String PER_USER_RANK = "per_user_rank";
 
     @Deprecated
@@ -82,6 +88,7 @@ public class AmbulanceProfileManager {
     }
 
 
+    @Deprecated
     public void login(@NotNull String account, @Nullable LoginResultBean.SecretBean data) {
         SPUtils.getInstance(PER_DATA).put(PER_USER_ID, account);
         SPUtils.getInstance(PER_DATA).put(PER_USER_LOGIN_INFO, gson.toJson(data));
@@ -97,6 +104,25 @@ public class AmbulanceProfileManager {
         SPUtils.getInstance(PER_DATA).put(PER_USER_LOGIN_INFO, (String) null);
     }
 
+
+    public void active(@NotNull String activeCode, @Nullable ActiveDeviceResultBean.SecretBean data) {
+        SPUtils.getInstance(PER_DATA).put(PER_USER_ACTIVE_ID, activeCode);
+        SPUtils.getInstance(PER_DATA).put(PER_USER_ACTIVE_INFO, gson.toJson(data));
+    }
+
+    public boolean isActive() {
+        String activeCode = SPUtils.getInstance(PER_DATA).getString(PER_USER_ACTIVE_ID, "");
+        return !activeCode.equals("");
+    }
+
+    public ActiveDeviceResultBean.SecretBean getActiveSecretBean() {
+        String secret = SPUtils.getInstance(PER_DATA).getString(PER_USER_ACTIVE_INFO);
+        return gson.fromJson(secret, ActiveDeviceResultBean.SecretBean.class);
+    }
+
+    public  void setTimProfile(TimProfileResultBean.SecretBean data) {
+        SPUtils.getInstance(PER_DATA).put(PER_USER_ACTIVE_INFO, gson.toJson(data));
+    }
 
 
     public String getUserId() {

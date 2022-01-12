@@ -28,11 +28,15 @@ public class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                if (AmbulanceProfileManager.getInstance().isLogin) {
+//                if (AmbulanceProfileManager.getInstance().isLogin) {
+//                    MainActivity.startMainActivity(this@WelcomeActivity)
+//                } else {
+//                    LoginActivity.startLoginActivity(this@WelcomeActivity)
+//                }
+                if (AmbulanceProfileManager.getInstance().isActive) {
                     MainActivity.startMainActivity(this@WelcomeActivity)
                 } else {
-                    LoginActivity.startLoginActivity(this@WelcomeActivity)
-                    //ActiveActivity.startLoginActivity(this@WelcomeActivity)
+                    ActiveActivity.startActiveActivity(this@WelcomeActivity)
                 }
                 finish()
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -41,7 +45,6 @@ public class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>() {
             override fun onAnimationRepeat(animation: Animation?) {
 
             }
-
         })
     }
 }

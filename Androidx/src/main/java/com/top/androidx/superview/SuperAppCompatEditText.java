@@ -83,6 +83,7 @@ public class SuperAppCompatEditText extends RelativeLayout implements TextWatche
      * 验证码长度，默认是 6
      */
     private int verificationLength = 6;
+    private boolean showDeleteIcon;
 
 
     private CountDownTimer timer;
@@ -117,6 +118,8 @@ public class SuperAppCompatEditText extends RelativeLayout implements TextWatche
         String hint = typedArray.getString(R.styleable.SuperAppCompatEditText_super_edit_text_hint);
         verificationLength = typedArray.getInteger(R.styleable.SuperAppCompatEditText_super_edit_verification_length, verificationLength);
         int underLineHeight = (int) typedArray.getDimension(R.styleable.SuperAppCompatEditText_super_edit_under_line_height, dip2px(1));
+
+        showDeleteIcon = typedArray.getBoolean(R.styleable.SuperAppCompatEditText_super_edit_show_delete_icon, false);
 
 
         View.inflate(context, R.layout.view_super_edittext, SuperAppCompatEditText.this);
@@ -216,6 +219,13 @@ public class SuperAppCompatEditText extends RelativeLayout implements TextWatche
     }
 
 
+    private void showDeleteIcon() {
+        //内容为空情况下，必须隐藏
+        //内容不为空的情况下，是否隐藏取决于showDeleteIcon
+        boolean b = TextUtils.isEmpty(contant) || !showDeleteIcon;
+        clean.setVisibility(b ? GONE : VISIBLE);
+    }
+
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -227,7 +237,7 @@ public class SuperAppCompatEditText extends RelativeLayout implements TextWatche
         //有内容
         contant = s.toString();
 
-        clean.setVisibility(TextUtils.isEmpty(contant) ? GONE : VISIBLE);
+        showDeleteIcon();
         boolean isStandard = false;
         if (null != superEditTextListener) {
             switch (mNowEditTextMode) {

@@ -1,6 +1,7 @@
 package com.android.xg.ambulancelib.api;
 
 
+import com.android.xg.ambulancelib.bean.ActiveDeviceResultBean;
 import com.android.xg.ambulancelib.bean.CaptchaResultBean;
 import com.android.xg.ambulancelib.bean.CreateMeetingResultBean;
 import com.android.xg.ambulancelib.bean.DoctorResultBean;
@@ -10,6 +11,7 @@ import com.android.xg.ambulancelib.bean.MeetInfoResultBean;
 import com.android.xg.ambulancelib.bean.RankResultBean;
 import com.android.xg.ambulancelib.bean.ResultBean;
 import com.android.xg.ambulancelib.bean.SectionsDoctorsResultBean;
+import com.android.xg.ambulancelib.bean.TimProfileResultBean;
 import com.android.xg.ambulancelib.bean.UserResultBean;
 
 import java.util.Map;
@@ -57,8 +59,27 @@ public interface AmbulanceRestService {
     @POST("/api/server/account/smslogin")
     Observable<LoginResultBean> loginBySMS(@HeaderMap Map<String, String> header, @Body Map<String, Object> map);
 
+
+    /**
+     * 激活设备
+     * @param header
+     * @param map
+     * @return
+     */
+    @POST("/api/server/ambulance/terminal/actived")
+    Observable<ActiveDeviceResultBean> activeDevice(@Body Map<String, Object> map);
+
+
+
+
     @POST("/api/server/ambulance/doctor/bind")
     Observable<CaptchaResultBean> getCaptchaCode(@HeaderMap Map<String, String> header, @Body Map<String, Object> map);
+
+
+
+    @POST("/api/server/tim/account/timprofile")
+    Observable<TimProfileResultBean> timProfile(@HeaderMap Map<String, String> header, @Body Map<String, Object> map);
+
 
     @GET("/api/server/ambulance/user-rank")
     Observable<RankResultBean> rank(@HeaderMap Map<String, String> header);

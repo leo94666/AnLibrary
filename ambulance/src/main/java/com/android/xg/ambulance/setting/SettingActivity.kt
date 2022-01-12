@@ -59,7 +59,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
         mDataBinding.includeToolbar.tvCard.text =AmbulanceProfileManager.getInstance().carNumber
         mDataBinding.includeToolbar.ivSetting.visibility=View.GONE
         mDataBinding.includeToolbar.tvExit.visibility=View.VISIBLE
-        mDataBinding.nestedScrollView.setScrollingEnabled(false)
+       // mDataBinding.nestedScrollView.setScrollingEnabled(false)
         mDataBinding.tabLayout.setTabAdapter(object : SimpleTabAdapter() {
             override fun getCount(): Int {
                 return mTitles.size

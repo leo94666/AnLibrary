@@ -32,7 +32,7 @@ class MeetFragment : BaseXFragment<FragmentMeetBinding>() {
         mMeetAdapter.setOnSelectedListener(object : MeetAdapter.OnSelectedListener {
             override fun onSelectedItem(position: MeetHistoryResultBean.MeetHistoryBean) {
                 var actionInviteBean =
-                    ActionInviteBean(position.roomNo!!, position.screenNum!!, position.source!!)
+                    ActionInviteBean(position.roomNo!!, position.screenNum!!, position.source!!,position.meetingId!!)
 
                 loginViewModel?.meetInfo(position.meetingId,
                     object : AmbulanceViewModel.ActionResult {
