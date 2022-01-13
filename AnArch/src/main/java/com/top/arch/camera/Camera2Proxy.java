@@ -466,7 +466,6 @@ public class Camera2Proxy {
         }
     };
 
-
     private void startBackgroundThread() {
         if (mBackgroundThread == null || mBackgroundHandler == null) {
             Log.v(TAG, "startBackgroundThread");
