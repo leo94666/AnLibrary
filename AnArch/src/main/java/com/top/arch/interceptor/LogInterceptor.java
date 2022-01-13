@@ -25,8 +25,7 @@ public class LogInterceptor implements Interceptor{
         long t1 = System.nanoTime();
         okhttp3.Response response = chain.proceed(chain.request());
         long t2 = System.nanoTime();
-        Log.e(TAG,String.format(Locale.getDefault(), "Received response for %s in %.1fms%n%s",
-                response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+        Log.e(TAG,String.format(Locale.getDefault(), "Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
         okhttp3.MediaType mediaType = response.body().contentType();
         String content = response.body().string();
 

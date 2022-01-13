@@ -88,6 +88,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-runtime:$lifecycle_extensions_runtime"
 
     api 'pub.devrel:easypermissions:3.0.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
 
 }
