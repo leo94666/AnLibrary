@@ -32,7 +32,7 @@
 #include "librtmp/rtmp_sys.h"
 #include "librtmp/log.h"
 
-#include "thread.h"
+#include "rtmpdump-2.3/thread.h"
 
 #define RD_SUCCESS		0
 #define RD_FAILED		1

@@ -37,7 +37,7 @@
 #include "librtmp/rtmp_sys.h"
 #include "librtmp/log.h"
 
-#include "thread.h"
+#include "rtmpdump-2.3/thread.h"
 
 #ifdef linux
 #include <linux/netfilter_ipv4.h>

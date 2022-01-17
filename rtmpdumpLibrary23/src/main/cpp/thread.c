@@ -19,7 +19,7 @@
  *
  */
 
-#include "thread.h"
+#include "rtmpdump-2.3/thread.h"
 #include "librtmp/log.h"
 
 #ifdef WIN32
