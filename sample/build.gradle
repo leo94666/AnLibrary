@@ -42,6 +42,7 @@ dependencies {
     implementation project(path: ':Androidx')
     implementation project(path: ':screenshot')
     implementation project(path: ':ijkplayer')
+    implementation project(path: ':rtmpdumpLibrary23')
     //implementation project(path: ':ffmpegLibrary422')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
