@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.top.ijkplayer.R;
 import com.top.ijkplayer.widget.controller.BibiBiliMediaController;
@@ -37,21 +38,25 @@ public class IjkVideoViewActivity extends AppCompatActivity {
         }, v -> {
             Toast.makeText(this, "Pre", Toast.LENGTH_SHORT).show();
         });
-
         BibiBiliMediaController bibibiliMediaController = new BibiBiliMediaController(this);
-
-
-
         mVideoView.setMediaController(bibibiliMediaController);
-
         mVideoView.setHudView(mHudView);
 
 
         //mVideoView.setVideoPath("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
         //mVideoView.setVideoPath("rtmp://media3.scctv.net/live/scctv_800");
        // mVideoView.setVideoPath("https://ebs-1306092442.cos.ap-nanjing.myqcloud.com/%E6%B5%8B%E8%AF%95%E7%97%85%E4%BE%8B/%E7%97%85%E4%BE%8B%E4%BD%A0%E5%A5%BD/tmp5BC4.mp4");
-        mVideoView.setVideoPath("rtsp://admin:bjxg12345@192.168.100.112:554/h264/ch1/main/av_stream");
 
-        mVideoView.start();
+        AppCompatSpinner url = findViewById(R.id.sp_url);
+
+        findViewById(R.id.et_play).setOnClickListener(view -> {
+            if (mVideoView.isPlaying()){
+                mVideoView.stopPlayback();
+            }
+            String[] stringArray = getResources().getStringArray(R.array.rtmp);
+            int selectedItemPosition = url.getSelectedItemPosition();
+            mVideoView.setVideoPath(stringArray[selectedItemPosition]);
+            mVideoView.start();
+        });
     }
 }

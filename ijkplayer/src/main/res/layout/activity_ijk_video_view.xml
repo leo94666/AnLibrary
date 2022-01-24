@@ -26,12 +26,16 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical">
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_url"
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/sp_url"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_24"
-            android:hint="rtsp/rtmp/rtp"
+            android:layout_height="wrap_content"
+            android:entries="@array/rtmp"
+            android:textColor="#FFFFFF"
+            android:background="@color/transparent2"
             />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/et_play"
             android:layout_width="match_parent"

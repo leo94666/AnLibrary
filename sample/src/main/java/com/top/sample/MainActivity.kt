@@ -21,10 +21,6 @@ class MainActivity : AppCompatActivity() {
 
         //click.setOn
 
-
-
-
-
         tv.setOnClickListener {
             //时间选择器
 
