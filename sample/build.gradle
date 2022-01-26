@@ -64,4 +64,12 @@ dependencies {
 
     //ExoPlayer as IMediaPlayer: optional, experimental
     //compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+
+
+    // required if you want to use Mockito for unit tests
+    testImplementation 'org.mockito:mockito-core:2.8.9'
+
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
+
 }
