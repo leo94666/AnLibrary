@@ -63,12 +63,12 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
     /**
      * 开始预览
      * 我们相机采集的的画面的数据 yuv420类型有很多  例如： nv21， i420， nv12， nvxx， ....
-     *
+     * <p>
      * 简单说下：下节课画图说
-     *
+     * <p>
      * w * h * 3 / 2
-     *
-     YUV 420 子集的之一
+     * <p>
+     * YUV 420 子集的之一
      * 4 * 4
      * y y y y
      * y y y y
@@ -76,7 +76,7 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
      * y y y y
      * u u u u
      * v v v v
-     *
+     * <p>
      * YUV 420 子集的之一
      * 4 * 4
      * y y y y
@@ -85,11 +85,11 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
      * y y y y
      * u v u v
      * u v u v
-     *
+     * <p>
      * 我们为什么一定用YUV，不用RGBA？
      * 答：1.在各个算法领域上 YUV 更高效，算法更成熟
-     *    2.RGBA8888 4个字节32位， YUV RGAB 好像是一半
-     *    3.黑白电视 Y只有明亮度 黑白色，   彩色电视 UV 色度和饱和度
+     * 2.RGBA8888 4个字节32位， YUV RGAB 好像是一半
+     * 3.黑白电视 Y只有明亮度 黑白色，   彩色电视 UV 色度和饱和度
      */
     private void startPreview() {
         try {
@@ -123,6 +123,7 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
     /**
      * 旋转画面角度（因为默认预览是歪的，所以就需要旋转画面角度）
      * 这个只是画面的旋转，但是数据不会旋转，你还需要额外处理
+     *
      * @param parameters
      */
     private void setPreviewOrientation(Camera.Parameters parameters) {
@@ -157,6 +158,7 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
 
     /**
      * 在设置宽和高的同时，能够打印 支持的分辨率
+     *
      * @param parameters
      */
     private void setPreviewSize(Camera.Parameters parameters) {
@@ -186,6 +188,7 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
 
     /**
      * 与Surface绑定 == surfaceView.getHolder()
+     *
      * @param surfaceHolder
      */
     public void setPreviewDisplay(SurfaceHolder surfaceHolder) {
@@ -196,7 +199,8 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 下面就是SurfaceView 需要的 start
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) { }
+    public void surfaceCreated(SurfaceHolder holder) {
+    }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -214,11 +218,8 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 下面就是SurfaceView 需要的 start
 
     /**
-     *
-     * @param data 子集nv21 == YUV420类型的数据
-     * @param camera
-     *
-     * C++层 nv21不能用 必须换成  i420
+     * @param data   子集nv21 == YUV420类型的数据
+     * @param camera C++层 nv21不能用 必须换成  i420
      */
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
@@ -229,6 +230,7 @@ public class CameraHelper implements SurfaceHolder.Callback, Camera.PreviewCallb
         }
         camera.addCallbackBuffer(buffer);
     }
+
     public void setPreviewCallback(Camera.PreviewCallback previewCallback) {
         mPreviewCallback = previewCallback;
     }

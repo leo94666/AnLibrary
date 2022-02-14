@@ -13,6 +13,14 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+//        ndk.abiFilters 'armeabi-v7a'
+//        externalNativeBuild {
+//            cmake {
+//                cppFlags ""
+//                abiFilters "armeabi-v7a"
+//            }
+//        }
     }
 
     //指定so库的位置，加载so库

@@ -37,8 +37,8 @@ public class AudioChannel {
         Log.d("Derry", "AudioChannel.java minBufferSize:" + minBufferSize); // AudioChannel.java minBufferSize:14208
 
         audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, // 安卓手机的麦克风
-                         44100,  // 采样率
-                                channelConfig, // 声道数 双声道
+                44100,  // 采样率
+                channelConfig, // 声道数 双声道
                 AudioFormat.ENCODING_PCM_16BIT, // 位深 16位 2字节
                 Math.max(inputSamples, minBufferSize)); // 缓冲区大小（以字节为单位）：max在两者中取最大的，内置缓冲buffsize大一些 没关系的，能大 但是不能小
     }
