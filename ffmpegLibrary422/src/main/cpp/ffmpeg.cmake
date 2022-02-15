@@ -158,6 +158,8 @@ set(ffmpeg_src
         ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg_opt.c
         ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/fftools/ffmpeg.c
         )
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}/)
 message("=================================ffmpeg.cmake end===========================")
 
 # FFMPEG EXE SOURCES SECTION: END

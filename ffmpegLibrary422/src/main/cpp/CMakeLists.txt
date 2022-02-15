@@ -1,4 +1,4 @@
-# 参考https://github.com/IljaKosynkin/FFmpeg-Development-Kit
+# 参考 https://github.com/IljaKosynkin/FFmpeg-Development-Kit
 cmake_minimum_required(VERSION 3.4.1)
 message(WARNING "CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
 message(WARNING "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")

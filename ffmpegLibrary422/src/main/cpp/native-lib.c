@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <android/log.h>
-#include "ffmpeg-4.2.2/libavcodec/jni.h"
+#include "libavcodec/jni.h"
 
 #include "cpu-features.h"
 static int pfd[2];
