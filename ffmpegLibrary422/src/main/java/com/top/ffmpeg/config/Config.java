@@ -11,7 +11,6 @@ public class Config {
     public static final String TAG = "Android-mobile-ffmpeg 422";
 
     static {
-        //Log.i(Config.TAG, String.format("Loaded mobile-ffmpeg-%s-%s-%s-%s.", getPackageName(), AbiDetect.getAbi(), getVersion(), getBuildDate()));
         System.loadLibrary("avutil");
         System.loadLibrary("swresample");
         System.loadLibrary("avcodec");

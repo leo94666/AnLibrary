@@ -1,4 +1,3 @@
-#include <libavcodec/jni.h>
 #include <jni.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,6 +5,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <android/log.h>
+#include "ffmpeg-4.2.2/libavcodec/jni.h"
 
 static int pfd[2];
 static pthread_t thr;

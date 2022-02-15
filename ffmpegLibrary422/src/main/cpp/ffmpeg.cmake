@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.4.1)
 
 # ownload ffmepg source
 message("=================================ffmpeg.cmake start===========================")
-
 #set(C_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../cSource)
 set(FFMPEG_VERSION 4.2.2)
 set(FFMPEG_NAME ffmpeg-${FFMPEG_VERSION})

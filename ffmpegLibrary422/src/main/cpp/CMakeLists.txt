@@ -1,16 +1,13 @@
+# 参考https://github.com/IljaKosynkin/FFmpeg-Development-Kit
 cmake_minimum_required(VERSION 3.4.1)
-message("CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
+message(STATUS "CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
 message(STATUS "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
-message(WARNING "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
-# SET DIRECTORIES SECTION: START
-# https://github.com/IljaKosynkin/FFmpeg-Development-Kit
-# We add both directories in the very beggining to make sure all targets specified below can use libs from there
-#message("==============CMAKE_LIBRARY_OUTPUT_DIRECTORY:  ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+message(STATUS "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
+
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/include)
 
 # SET DIRECTORIES SECTION: END
-
 include(ExternalProject)
 
 set(FFMPEG_LIBS avutil swresample avcodec avformat swscale avfilter avdevice)
@@ -26,7 +23,7 @@ IF (${LIB_X264_ENABLED})
 
     list(APPEND FFMPEG_CONFIGURE_EXTRAS --enable-gpl --enable-libx264 --enable-nonfree)
     list(APPEND FFMPEG_LIBS postproc x264)
-ENDIF()
+ENDIF ()
 
 include(ffmpeg.cmake)
 
@@ -34,3 +31,8 @@ add_library(native-lib SHARED native-lib.c ${ffmpeg_src})
 add_dependencies(native-lib ffmpeg_target)
 find_library(log-lib log)
 target_link_libraries(native-lib ${log-lib} ${FFMPEG_LIBS})
+
+
+include_directories(${ANDROID_NDK}/sources/android/cpufeatures)
+add_library(cpufeatures STATIC
+        ${ANDROID_NDK}/sources/android/cpufeatures/cpu-features.c)
