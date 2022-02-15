@@ -7,6 +7,7 @@
 #include <android/log.h>
 #include "ffmpeg-4.2.2/libavcodec/jni.h"
 
+#include "cpu-features.h"
 static int pfd[2];
 static pthread_t thr;
 static const char *tag = "VideoKit";

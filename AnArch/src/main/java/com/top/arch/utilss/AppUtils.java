@@ -1,16 +1,11 @@
 package com.top.arch.utilss;
 
-
+/**
+ * @Author leo
+ * @ClassName AppUtils
+ * @Description TODO
+ * @Date 2022/1/13 20:43
+ * @Version 1.0
+ **/
 public class AppUtils {
-
-   /**
-    * @param: args
-    * @description: TODO
-    * @return: void
-    * @author: leo
-    * @date: 2022/1/14 10:31
-    */
-    public static void main(String[] args) {
-        
-    }
 }

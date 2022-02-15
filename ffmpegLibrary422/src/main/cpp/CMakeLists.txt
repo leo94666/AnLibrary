@@ -1,8 +1,10 @@
 # 参考https://github.com/IljaKosynkin/FFmpeg-Development-Kit
 cmake_minimum_required(VERSION 3.4.1)
-message(STATUS "CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
-message(STATUS "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
-message(STATUS "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
+message(WARNING "CMAKE_SOURCE_DIR = ${CMAKE_SOURCE_DIR}")
+message(WARNING "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
+message(WARNING "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
+
+message(WARNING "CMAKE_LIBRARY_OUTPUT_DIRECTORY = ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/include)
@@ -13,7 +15,7 @@ include(ExternalProject)
 set(FFMPEG_LIBS avutil swresample avcodec avformat swscale avfilter avdevice)
 set(FFMPEG_CONFIGURE_EXTRAS --enable-jni --enable-mediacodec)
 
-message("======LIB_X264_ENABLED:  ${LIB_X264_ENABLED}")
+message(WARNING "======LIB_X264_ENABLED:  ${LIB_X264_ENABLED}")
 IF (${LIB_X264_ENABLED})
     include(libx264.cmake)
 
@@ -27,7 +29,11 @@ ENDIF ()
 
 include(ffmpeg.cmake)
 
-add_library(native-lib SHARED native-lib.c ${ffmpeg_src})
+add_library(native-lib
+        SHARED
+        native-lib.c
+        ${ffmpeg_src})
+
 add_dependencies(native-lib ffmpeg_target)
 find_library(log-lib log)
 target_link_libraries(native-lib ${log-lib} ${FFMPEG_LIBS})
