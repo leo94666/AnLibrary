@@ -86,6 +86,9 @@ set(HOST_BIN ${ANDROID_NDK}/prebuilt/${ANDROID_HOST_TAG}/bin)
 IF (${CMAKE_ANDROID_ARCH_ABI} STREQUAL x86)
     list(APPEND FFMPEG_CONFIGURE_EXTRAS --disable-asm)
 ENDIF()
+message("=========================================${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}")
+message("=========================================${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}")
+
 
 string(REPLACE ";" "|" FFMPEG_CONFIGURE_EXTRAS_ENCODED "${FFMPEG_CONFIGURE_EXTRAS}")
 #创建一个外部工程可以驱动下载、更新/补丁、配置、构建、安装和测试流程的自定义目标
