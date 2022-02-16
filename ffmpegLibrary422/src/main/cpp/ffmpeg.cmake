@@ -97,7 +97,8 @@ ExternalProject_Add(ffmpeg_target
         URL ${CMAKE_CURRENT_SOURCE_DIR}/${FFMPEG_NAME}
         DOWNLOAD_NO_EXTRACT 1
         CONFIGURE_COMMAND ${CMAKE_COMMAND} -E env
-        PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}
+        #PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}
+        PATH=${ANDROID_TOOLCHAIN_ROOT}/bin
         AS_FLAGS=${FFMPEG_ASM_FLAGS}
         ${CMAKE_COMMAND}
         -DSTEP:STRING=configure
@@ -115,7 +116,8 @@ ExternalProject_Add(ffmpeg_target
         -DCONFIGURE_EXTRAS:STRING=${FFMPEG_CONFIGURE_EXTRAS_ENCODED}
         -P ffmpeg_build_system.cmake
         BUILD_COMMAND ${CMAKE_COMMAND} -E env
-        PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}
+        #PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}
+        PATH=${ANDROID_TOOLCHAIN_ROOT}/bin
         ${CMAKE_COMMAND}
         -DSTEP:STRING=build
         -NJOBS:STRING=${NJOBS}
@@ -123,7 +125,8 @@ ExternalProject_Add(ffmpeg_target
         -P ffmpeg_build_system.cmake
         BUILD_IN_SOURCE 1
         INSTALL_COMMAND ${CMAKE_COMMAND} -E env
-        PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}
+        #PATH=${ANDROID_TOOLCHAIN_ROOT}/bin:$ENV{PATH}
+        PATH=${ANDROID_TOOLCHAIN_ROOT}/bin
         ${CMAKE_COMMAND}
         -DSTEP:STRING=install
         -DHOST_TOOLCHAIN:STRING=${HOST_BIN}
